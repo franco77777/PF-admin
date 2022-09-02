@@ -27,7 +27,7 @@ const Customers = () => {
       `https://pf-viajes-final.herokuapp.com/user/${e.target.value}`,
       { status: "admin" }
     )
-
+    dispatch(getTask())
     console.log("soy respuesta de upgrate user", response.data)
   }
 
@@ -39,6 +39,14 @@ const Customers = () => {
     console.log("soy respuesta de delete user", response.data)
   }
 
+  const ban = async e => {
+    const response = await axios.put(
+      `https://pf-viajes-final.herokuapp.com/user/${e.target.value}`,
+      { status: "banned" }
+    )
+    dispatch(getTask())
+    console.log("soy respuesta de ban user", response.data)
+  }
   return (
     <div className="Table2">
       <h2 className="centrar">Customers</h2>
@@ -74,6 +82,9 @@ const Customers = () => {
                 <TableCell>{e.nationality}</TableCell>
                 <TableCell>{e.sex}</TableCell>
                 <TableCell>
+                  <button value={e._id} onClick={ban}>
+                    -
+                  </button>
                   <button value={e._id} onClick={upgrade}>
                     +
                   </button>

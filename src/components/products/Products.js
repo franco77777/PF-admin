@@ -22,8 +22,8 @@ const Products = () => {
   console.log("soy products", flights)
 
   return (
-    <div className="Table2">
-      <h2>Flights in Progress</h2>
+    <div className="Table2 flightsTable">
+      <h2 className="centrar">Planned Trips</h2>
 
       <TableContainer style={{ boxShadow: "0px 13px 20px 0px #80808029" }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -31,7 +31,6 @@ const Products = () => {
             <TableRow>
               <TableCell>Destination</TableCell>
               <TableCell>Origin</TableCell>
-
               <TableCell>Turist</TableCell>
               <TableCell>FirstClase</TableCell>
               <TableCell>Status</TableCell>

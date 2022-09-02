@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { GiEuropeanFlag } from "react-icons/gi"
 import Admins from "../admins/Admins"
+import Banned from "../banned/Banned"
 import Customers from "../Customers/Customers"
 import Flights from "../flights/Flights"
 import Maindash from "../maindash/Maindash"
@@ -20,12 +21,12 @@ const Home = () => {
         {selected === 0 && (
           <Maindash setSelected={setSelected} selected={selected} />
         )}
-        {selected === 1 && <Orders />}
+        {selected === 1 && <Admins />}
         {selected === 2 && <Customers />}
-        {selected === 3 && <Flights />}
-        {selected === 4 && <Admins />}
+        {selected === 3 && <Banned />}
+        {selected === 4 && <Flights />}
         {selected === 5 && <Products />}
-
+        {selected === 6 && <Orders />}
         <RightSide />
       </div>
     </div>

@@ -6,7 +6,9 @@ import { BsCardChecklist } from "react-icons/bs"
 import { IoAirplaneOutline } from "react-icons/io5"
 import { RiAdminLine } from "react-icons/ri"
 import { MdOutlineSell } from "react-icons/md"
+import { ImUserTie } from "react-icons/im"
 import { motion } from "framer-motion"
+
 import { UilBars } from "@iconscout/react-unicons"
 
 const Sidebar = ({ selected, setSelected }) => {
@@ -44,8 +46,8 @@ const Sidebar = ({ selected, setSelected }) => {
             className={selected === 1 ? "menuItem active" : "menuItem"}
             onClick={() => setSelected(1)}
           >
-            <BsCardChecklist />
-            <span>Orders</span>
+            <ImUserTie />
+            <span>Admins</span>
           </div>
 
           <div
@@ -60,16 +62,16 @@ const Sidebar = ({ selected, setSelected }) => {
             className={selected === 3 ? "menuItem active" : "menuItem"}
             onClick={() => setSelected(3)}
           >
-            <IoAirplaneOutline />
-            <span>Flights</span>
+            <RiAdminLine />
+            <span>Banned</span>
           </div>
 
           <div
             className={selected === 4 ? "menuItem active" : "menuItem"}
             onClick={() => setSelected(4)}
           >
-            <RiAdminLine />
-            <span>Admins</span>
+            <IoAirplaneOutline />
+            <span>Flights</span>
           </div>
 
           <div
@@ -78,6 +80,14 @@ const Sidebar = ({ selected, setSelected }) => {
           >
             <MdOutlineSell />
             <span>Products</span>
+          </div>
+
+          <div
+            className={selected === 6 ? "menuItem active" : "menuItem"}
+            onClick={() => setSelected(6)}
+          >
+            <BsCardChecklist />
+            <span>Orders</span>
           </div>
         </article>
       </motion.div>

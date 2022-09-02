@@ -1,34 +1,25 @@
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material"
+import axios from "axios"
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import Table from "@mui/material/Table"
-import TableBody from "@mui/material/TableBody"
-import TableCell from "@mui/material/TableCell"
-import TableHead from "@mui/material/TableHead"
-import TableRow from "@mui/material/TableRow"
-import Paper from "@mui/material/Paper"
-import TableContainer from "@mui/material/TableContainer"
-
-import "./Admins.css"
 import { getTask } from "../../features/orders"
-import axios from "axios"
 
-const Admins = () => {
-  const customers = useSelector(state => state.tasks.users)
-  const users = customers.filter(e => e.status === "admin")
+const Banned = () => {
   const dispatch = useDispatch()
+  const customers = useSelector(state => state.tasks.users)
+  const banned = customers.filter(e => e.status === "banned")
 
   useEffect(() => {
     dispatch(getTask())
   }, [dispatch])
-
-  const degrade = async e => {
-    const response = await axios.put(
-      `https://pf-viajes-final.herokuapp.com/user/${e.target.value}`,
-      { status: "user" }
-    )
-    dispatch(getTask())
-    console.log("soy respuesta de degrade admin", response.data)
-  }
 
   const Delete = async e => {
     const response = await axios.delete(
@@ -38,18 +29,27 @@ const Admins = () => {
     console.log("soy respuesta de delete user", response.data)
   }
 
-  const ban = async e => {
+  const unban = async e => {
     const response = await axios.put(
       `https://pf-viajes-final.herokuapp.com/user/${e.target.value}`,
-      { status: "banned" }
+      { status: "user" }
     )
     dispatch(getTask())
-    console.log("soy respuesta de ban user", response.data)
+    console.log("soy respuesta de unban user", response.data)
+  }
+
+  const upgrade = async e => {
+    const response = await axios.put(
+      `https://pf-viajes-final.herokuapp.com/user/${e.target.value}`,
+      { status: "admin" }
+    )
+    dispatch(getTask())
+    console.log("soy respuesta de upgrate user", response.data)
   }
 
   return (
     <div className="Table2">
-      <h2 className="centrar">Administrators</h2>
+      <h2 className="centrar">Banned Users</h2>
       <TableContainer
         component={Paper}
         style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
@@ -68,7 +68,7 @@ const Admins = () => {
             </TableRow>
           </TableHead>
           <TableBody style={{ color: "white" }}>
-            {users.map((e, i) => (
+            {banned.map((e, i) => (
               <TableRow
                 key={i}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -81,10 +81,10 @@ const Admins = () => {
                 <TableCell>{e.nationality}</TableCell>
                 <TableCell>{e.sex}</TableCell>
                 <TableCell>
-                  <button value={e._id} onClick={degrade}>
-                    -
+                  <button value={e._id} onClick={unban}>
+                    +
                   </button>
-                  <button value={e._id} onClick={ban}>
+                  <button value={e._id} onClick={upgrade}>
                     *
                   </button>
 
@@ -101,4 +101,4 @@ const Admins = () => {
   )
 }
 
-export default Admins
+export default Banned
