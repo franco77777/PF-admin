@@ -2,12 +2,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
 export const getTask = createAsyncThunk("tasks/getTasks", async () => {
-  const responde = await axios.get("https://pf-viajes-final.herokuapp.com/user")
+  const responde = await axios.get("https://pf-seraerror.herokuapp.com/user")
   return responde.data
 })
 
 export const getFlights = createAsyncThunk("tasks/getFlights", async () => {
-  const response = await axios("https://pf-viajes-final.herokuapp.com/flights")
+  const response = await axios("https://pf-seraerror.herokuapp.com/flights")
 
   console.log("soy response", response.data)
   return response.data
@@ -17,7 +17,7 @@ export const getFlightsAvailables = createAsyncThunk(
   "tasks/getFlightsAvailables",
   async () => {
     const response = await axios(
-      "https://pf-viajes-final.herokuapp.com/flightsAvailable"
+      "https://pf-seraerror.herokuapp.com/flightsAvailable"
     )
     const response2 = response.data
     const response3 = response2.sort(

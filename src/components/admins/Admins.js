@@ -23,7 +23,7 @@ const Admins = () => {
 
   const degrade = async e => {
     const response = await axios.put(
-      `https://pf-viajes-final.herokuapp.com/user/${e.target.value}`,
+      `https://pf-seraerror.herokuapp.com/user/${e.target.value}`,
       { status: "user" }
     )
     dispatch(getTask())
@@ -32,7 +32,7 @@ const Admins = () => {
 
   const Delete = async e => {
     const response = await axios.delete(
-      `https://pf-viajes-final.herokuapp.com/user/${e.target.value}`
+      `https://pf-seraerror.herokuapp.com/user/${e.target.value}`
     )
     dispatch(getTask())
     console.log("soy respuesta de delete user", response.data)
@@ -40,7 +40,7 @@ const Admins = () => {
 
   const ban = async e => {
     const response = await axios.put(
-      `https://pf-viajes-final.herokuapp.com/user/${e.target.value}`,
+      `https://pf-seraerror.herokuapp.com/user/${e.target.value}`,
       { status: "banned" }
     )
     dispatch(getTask())
