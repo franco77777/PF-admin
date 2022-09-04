@@ -29,6 +29,7 @@ const Products = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell></TableCell>
               <TableCell>Destination</TableCell>
               <TableCell>Origin</TableCell>
               <TableCell>Turist</TableCell>
@@ -48,6 +49,7 @@ const Products = () => {
                 key={i}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
+                <TableCell>Destination</TableCell>
                 <TableCell>{e.destination}</TableCell>
                 <TableCell>{e.origin}</TableCell>
                 <TableCell>{e.price}</TableCell>
