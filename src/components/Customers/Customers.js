@@ -7,10 +7,16 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
 import TableContainer from "@mui/material/TableContainer"
+import { CgArrowDownR } from "react-icons/cg"
+import { MdDelete } from "react-icons/md"
 
 import "./Customers.css"
 import { getTask } from "../../features/orders"
 import axios from "axios"
+import {
+  BsFillArrowDownSquareFill,
+  BsFillArrowUpSquareFill,
+} from "react-icons/bs"
 
 const Customers = () => {
   const customers = useSelector(state => state.tasks.users)
@@ -24,7 +30,7 @@ const Customers = () => {
 
   const upgrade = async e => {
     const response = await axios.put(
-      `https://pf-seraerror.herokuapp.com/user/${e.target.value}`,
+      `https://pf-seraerror.herokuapp.com/user/${e}`,
       { status: "admin" }
     )
     dispatch(getTask())
@@ -33,7 +39,7 @@ const Customers = () => {
 
   const Delete = async e => {
     const response = await axios.delete(
-      `https://pf-seraerror.herokuapp.com/user/${e.target.value}`
+      `https://pf-seraerror.herokuapp.com/user/${e}`
     )
     dispatch(getTask())
     console.log("soy respuesta de delete user", response.data)
@@ -41,15 +47,15 @@ const Customers = () => {
 
   const ban = async e => {
     const response = await axios.put(
-      `https://pf-seraerror.herokuapp.com/user/${e.target.value}`,
+      `https://pf-seraerror.herokuapp.com/user/${e}`,
       { status: "banned" }
     )
     dispatch(getTask())
-    console.log("soy respuesta de ban user", response.data)
+    console.log("soy respuesta de ban user", e)
   }
   return (
     <div className="Table2">
-      <h2 className="centrar">Customers</h2>
+      <h2 className="centrar title">Customers</h2>
       <TableContainer
         className="centrando"
         component={Paper}
@@ -58,6 +64,7 @@ const Customers = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell></TableCell>
               <TableCell align="left">Name</TableCell>
               <TableCell align="left">Surname</TableCell>
               <TableCell align="left">Email</TableCell>
@@ -65,7 +72,6 @@ const Customers = () => {
               <TableCell>DNI</TableCell>
               <TableCell>Nationality</TableCell>
               <TableCell>Sex</TableCell>
-              <TableCell>Modify</TableCell>
             </TableRow>
           </TableHead>
           <TableBody style={{ color: "white" }}>
@@ -74,6 +80,13 @@ const Customers = () => {
                 key={i}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
+                <TableCell>
+                  <div className="botonIcons">
+                    <BsFillArrowDownSquareFill onClick={() => ban(e._id)} />
+                    <BsFillArrowUpSquareFill onClick={() => upgrade(e._id)} />
+                    <MdDelete onClick={() => Delete(e._id)} />
+                  </div>
+                </TableCell>
                 <TableCell>{e.name}</TableCell>
                 <TableCell>{e.surname}</TableCell>
                 <TableCell>{e.email}</TableCell>
@@ -81,17 +94,6 @@ const Customers = () => {
                 <TableCell>{e.DNI}</TableCell>
                 <TableCell>{e.nationality}</TableCell>
                 <TableCell>{e.sex}</TableCell>
-                <TableCell>
-                  <button value={e._id} onClick={ban}>
-                    -
-                  </button>
-                  <button value={e._id} onClick={upgrade}>
-                    +
-                  </button>
-                  <button value={e._id} onClick={Delete}>
-                    x
-                  </button>
-                </TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -42,6 +42,7 @@ const Orders = () => {
       "https://pf-seraerror.herokuapp.com/flightsAvailable",
       order
     )
+    alert(response.data)
     console.log("soy el post", response.data)
   }
 

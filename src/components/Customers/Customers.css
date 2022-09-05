@@ -6,6 +6,19 @@
 }
  */
 
+.botonIcons {
+  display: flex;
+  gap: 10px;
+}
+.botonIcons > * {
+  height: 20px;
+  width: 20px;
+}
+
+.botonIcons > *:hover {
+  cursor: pointer;
+}
+
 .centrando {
 }
 .centrar {
