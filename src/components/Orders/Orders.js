@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import "./Orders.css"
 import axios from "axios"
-import "antd/dist/antd.css"
 import { DatePicker, TimePicker } from "antd"
 import moment from "moment"
 const { RangePicker } = DatePicker
@@ -69,7 +68,7 @@ const Orders = () => {
           <TimePicker
             placeholder="Departs"
             use12Hours
-            format="h:mm A" // onChange?: ((value: moment.Moment | null, dateString: string) => void) | undefined
+            format="h:mm a" // onChange?: ((value: moment.Moment | null, dateString: string) => void) | undefined
             onChange={handleChange3}
           />
         </span>

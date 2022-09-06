@@ -5,12 +5,21 @@ export const taskSlice = createSlice({
   name: "tasks",
   initialState: {
     users: [],
+    flightsFiltered: null,
     flights: [],
     flightsAv: [],
     isLoading: false,
   },
-
-  reducers: {},
+  reducers: {
+    filtered: (state, action) => {
+      state.flightsFiltered = action.payload
+    },
+    filtering: (state, action) => {
+      state.flightsFiltered = [...state.flights].filter(
+        e => e === action.payload
+      )
+    },
+  },
   extraReducers: {
     [getTask.pending]: state => {
       state.isLoading = true
@@ -44,5 +53,5 @@ export const taskSlice = createSlice({
     },
   },
 })
-export const { AddTask } = taskSlice.actions
+export const { filtered, filtering } = taskSlice.actions
 export default taskSlice.reducer

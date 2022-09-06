@@ -1,0 +1,156 @@
+import { AudioOutlined } from "@ant-design/icons"
+import { Button, Modal, Select, Space, Input } from "antd"
+import React, { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { getFlights } from "../../features/orders"
+import { ImFilter } from "react-icons/im"
+import { filtered } from "../../features/tasks"
+const { Search } = Input
+
+const Filters = () => {
+  const flights = useSelector(state => state.tasks.flights)
+  const flightsAv = useSelector(state => state.tasks.flightsAv)
+  const flightsFiltered = useSelector(state => state.tasks.flightsFiltered)
+  const dispatch = useDispatch()
+  const [defaultValue, setDefaultValue] = useState(null)
+  const [modal, setModal] = useState(false)
+  const [filter, setFilter] = useState(null)
+
+  const { Option } = Select
+
+  const handleChange = e => {
+    setDefaultValue(null)
+    const response = flights.map(d => d[e])
+    const dataArr = new Set(response)
+    let result = [...dataArr]
+    setFilter(result)
+    setTimeout(() => {
+      setDefaultValue(e)
+    }, 300)
+  }
+  const filterChange = e => {
+    const responde = flights.filter(d => d[defaultValue] === e)
+    console.log("soy filtered", responde)
+    dispatch(filtered(responde))
+    //cerrarModal2()
+    console.log("soy flights", flights)
+  }
+  const putFlight = () => {
+    console.log("hola")
+  }
+
+  const abrirModal2 = e => {
+    console.log("soy abrir", e)
+    setDefaultValue(null)
+    setFilter("filter by")
+    setModal(true)
+  }
+  const cerrarModal2 = e => {
+    setModal(false)
+    console.log(e)
+  }
+  const accion = () => {
+    //cerrarModal2()
+  }
+
+  const resetList = () => {
+    dispatch(filtered(null))
+    //    cerrarModal2()
+  }
+
+  const a = flights.length && Object.keys(flights[0])
+
+  const onSearch = d => {
+    //dispatch(filtering(e.target.value))
+    /*  const soy = flightsAv.filter(e => {
+      let a = Object.values(e)
+      for (let i of a) {
+        if (typeof i !== "number") {
+          if (i.toLowerCase() === d.target.value.toLowerCase()) return i
+        }
+        if (i === d.target.value) return i
+      }
+    })
+    console.log("soy soy", soy) */
+
+    const soy = [...flightsAv].filter(e => {
+      let a = Object.values(e)
+      for (let i of a) {
+        if (
+          i
+            .toString()
+            .toLowerCase()
+            .includes(d.target.value.toString().toLowerCase())
+        )
+          return e
+      }
+    })
+    dispatch(filtered(soy))
+    console.log("soy soy", soy)
+  }
+
+  useEffect(() => {
+    dispatch(getFlights())
+  }, [])
+
+  return (
+    <div>
+      <Button size="small" type="primary" onClick={() => abrirModal2()}>
+        <ImFilter />
+      </Button>
+      <Modal
+        centered
+        width={300}
+        title="Filters"
+        visible={modal}
+        onCancel={cerrarModal2}
+        onOk={accion}
+        footer={[
+          <Button onClick={resetList}>Reset List</Button>,
+          <Button onClick={cerrarModal2}>Close</Button>,
+        ]}
+      >
+        <Space direction="vertical">
+          <Search
+            placeholder="input search text"
+            onChange={onSearch}
+            enterButton
+            style={{ width: 200 }}
+          />
+        </Space>
+        <Select
+          defaultValue="filter by"
+          style={{ width: 120 }}
+          onChange={handleChange}
+          allowClear
+        >
+          {a &&
+            a.map((e, i) =>
+              e !== "_id" ? (
+                <Option key={i} value={e}>
+                  {e}
+                </Option>
+              ) : null
+            )}
+        </Select>
+        {defaultValue && (
+          <Select
+            onChange={filterChange}
+            style={{ width: 120 }}
+            defaultValue={defaultValue}
+            allowClear
+          >
+            {filter &&
+              filter.map((e, i) => (
+                <Option key={i} value={e}>
+                  {e}
+                </Option>
+              ))}
+          </Select>
+        )}
+      </Modal>
+    </div>
+  )
+}
+
+export default Filters

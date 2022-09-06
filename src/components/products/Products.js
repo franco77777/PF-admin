@@ -13,11 +13,16 @@ import moment from "moment"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getFlightsAvailables } from "../../features/orders"
+import { IoSettingsSharp } from "react-icons/io5"
+import { GrPowerReset } from "react-icons/gr"
+import Filters from "../filters/Filters"
 import "./Products.css"
 
 const Products = () => {
   const dispatch = useDispatch()
   const flights = useSelector(state => state.tasks.flightsAv)
+  const flightsFiltered = useSelector(state => state.tasks.flightsFiltered)
+
   const [modal, setModal] = useState(false)
   const [place, setPlace] = useState({})
   const [order, setOrder] = useState()
@@ -101,7 +106,9 @@ const Products = () => {
   //console.log("soy products", flights)
   console.log("soy order", order)
   console.log("soy place", place)
-
+  let isNull = flights
+  flightsFiltered ? (isNull = flightsFiltered) : (isNull = flights)
+  console.log("soy filtered store", flightsFiltered)
   return (
     <div className="Table2 flightsTable">
       <h2 className="centrar title">Planned Trips</h2>
@@ -110,7 +117,9 @@ const Products = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell></TableCell>
+              <TableCell>
+                <Filters />
+              </TableCell>
               <TableCell>Destination</TableCell>
               <TableCell>Origin</TableCell>
               <TableCell>Turist</TableCell>
@@ -126,13 +135,14 @@ const Products = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {flights.map((e, i) => (
+            {isNull.map((e, i) => (
               <TableRow
                 key={i}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell>
                   <Button
+                    size="small"
                     type="primary"
                     onClick={() =>
                       abrirModal({
@@ -152,7 +162,11 @@ const Products = () => {
                       })
                     }
                   >
-                    Modify
+                    <IoSettingsSharp
+                      className="config"
+                      value={{ color: "white" }}
+                      color="white"
+                    />
                   </Button>
                 </TableCell>
                 <TableCell>{e.destination}</TableCell>
@@ -174,7 +188,7 @@ const Products = () => {
       </TableContainer>
       <Modal
         title=""
-        visible={modal}
+        open={modal}
         onCancel={cerrarModal}
         onOk={accion}
         footer={[
