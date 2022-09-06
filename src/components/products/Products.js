@@ -17,11 +17,14 @@ import { IoSettingsSharp } from "react-icons/io5"
 import { GrPowerReset } from "react-icons/gr"
 import Filters from "../filters/Filters"
 import "./Products.css"
+import { filtered } from "../../features/tasks"
+import Paginado from "../paginado/Paginado"
 
 const Products = () => {
   const dispatch = useDispatch()
   const flights = useSelector(state => state.tasks.flightsAv)
   const flightsFiltered = useSelector(state => state.tasks.flightsFiltered)
+  const flightsAv = useSelector(state => state.tasks.flightsAv)
 
   const [modal, setModal] = useState(false)
   const [place, setPlace] = useState({})
@@ -107,18 +110,18 @@ const Products = () => {
   console.log("soy order", order)
   console.log("soy place", place)
   let isNull = flights
-  flightsFiltered ? (isNull = flightsFiltered) : (isNull = flights)
+  flightsFiltered ? (isNull = flightsFiltered) : (isNull = flightsAv)
   console.log("soy filtered store", flightsFiltered)
   return (
     <div className="Table2 flightsTable">
       <h2 className="centrar title">Planned Trips</h2>
-
+      {/* <Paginado filtered={flightsAv} /> */}
       <TableContainer style={{ boxShadow: "0px 13px 20px 0px #80808029" }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>
-                <Filters />
+                <Filters flightsComponent={flightsAv} dispatched={filtered} />
               </TableCell>
               <TableCell>Destination</TableCell>
               <TableCell>Origin</TableCell>

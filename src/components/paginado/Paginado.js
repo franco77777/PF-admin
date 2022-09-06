@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react"
+/* import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getFlights } from "../../features/orders"
-import "./prueba.css"
+import "./Paginado.css"
 
-const Prueba = ({ filtered }) => {
+const Paginado = ({ filtered }) => {
   const [inputPaginado, setInputPaginado] = useState("")
   const [multiplicador, setMultiplicador] = useState(0)
 
@@ -33,6 +33,7 @@ const Prueba = ({ filtered }) => {
     if (e.target.value === "-") {
       setMultiplicador(multiplicador - 7)
     }
+    console.log(multiplicador)
     setInputPaginado("")
   }
 
@@ -112,4 +113,5 @@ const Prueba = ({ filtered }) => {
   )
 }
 
-export default Prueba
+export default Paginado
+ */

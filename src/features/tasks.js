@@ -5,9 +5,13 @@ export const taskSlice = createSlice({
   name: "tasks",
   initialState: {
     users: [],
-    flightsFiltered: null,
     flights: [],
     flightsAv: [],
+    flightsFiltered: null,
+    flightsFiltered2: null,
+    adminFiltered: null,
+    customerFiltered: null,
+    bannedFiltered: null,
     isLoading: false,
   },
   reducers: {
@@ -15,7 +19,25 @@ export const taskSlice = createSlice({
       state.flightsFiltered = action.payload
     },
     filtering: (state, action) => {
-      state.flightsFiltered = [...state.flights].filter(
+      state.flightsFiltered = [...state.flightsAv].filter(
+        e => e === action.payload
+      )
+    },
+    adminFiltering: (state, action) => {
+      state.adminFiltered = action.payload
+    },
+    customerFiltering: (state, action) => {
+      state.customerFiltered = action.payload
+    },
+    bannedFiltering: (state, action) => {
+      state.bannedFiltered = action.payload
+    },
+
+    filtered2: (state, action) => {
+      state.flightsFiltered2 = action.payload
+    },
+    filtering2: (state, action) => {
+      state.flightsFiltered2 = [...state.flights].filter(
         e => e === action.payload
       )
     },
@@ -53,5 +75,13 @@ export const taskSlice = createSlice({
     },
   },
 })
-export const { filtered, filtering } = taskSlice.actions
+export const {
+  filtered,
+  filtering,
+  filtered2,
+  filtering2,
+  adminFiltering,
+  customerFiltering,
+  bannedFiltering,
+} = taskSlice.actions
 export default taskSlice.reducer

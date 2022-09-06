@@ -14,9 +14,12 @@ import axios from "axios"
 import { BsFillArrowDownSquareFill } from "react-icons/bs"
 import { MdDelete } from "react-icons/md"
 import { GiJumpAcross } from "react-icons/gi"
+import { adminFiltering } from "../../features/tasks"
+import Filters from "../filters/Filters"
 
 const Admins = () => {
   const customers = useSelector(state => state.tasks.users)
+  const adminFiltered = useSelector(state => state.tasks.adminFiltered)
   const users = customers.filter(e => e.status === "admin")
   const dispatch = useDispatch()
 
@@ -29,6 +32,7 @@ const Admins = () => {
       `https://pf-seraerror.herokuapp.com/user/${e}`,
       { status: "user" }
     )
+    dispatch(adminFiltering(null))
     dispatch(getTask())
     console.log("soy respuesta de degrade admin", response.data)
   }
@@ -37,6 +41,7 @@ const Admins = () => {
     const response = await axios.delete(
       `https://pf-seraerror.herokuapp.com/user/${e}`
     )
+    dispatch(adminFiltering(null))
     dispatch(getTask())
     console.log("soy respuesta de delete user", response.data)
   }
@@ -46,9 +51,12 @@ const Admins = () => {
       `https://pf-seraerror.herokuapp.com/user/${e}`,
       { status: "banned" }
     )
+    dispatch(adminFiltering(null))
     dispatch(getTask())
     console.log("soy respuesta de ban user", response.data)
   }
+  let isNull = users
+  adminFiltered ? (isNull = adminFiltered) : (isNull = users)
 
   return (
     <div className="Table2">
@@ -60,7 +68,9 @@ const Admins = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell></TableCell>
+              <TableCell>
+                <Filters flightsComponent={users} dispatched={adminFiltering} />
+              </TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Surname</TableCell>
               <TableCell>Email</TableCell>
@@ -71,7 +81,7 @@ const Admins = () => {
             </TableRow>
           </TableHead>
           <TableBody style={{ color: "white" }}>
-            {users.map((e, i) => (
+            {isNull.map((e, i) => (
               <TableRow
                 key={i}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

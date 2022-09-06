@@ -14,10 +14,13 @@ import { MdDelete } from "react-icons/md"
 import { useDispatch, useSelector } from "react-redux"
 import { getTask } from "../../features/orders"
 import { GiJumpAcross } from "react-icons/gi"
+import { bannedFiltering } from "../../features/tasks"
+import Filters from "../filters/Filters"
 
 const Banned = () => {
   const dispatch = useDispatch()
   const customers = useSelector(state => state.tasks.users)
+  const bannedFiltered = useSelector(state => state.tasks.bannedFiltered)
   const banned = customers.filter(e => e.status === "banned")
 
   useEffect(() => {
@@ -28,6 +31,7 @@ const Banned = () => {
     const response = await axios.delete(
       `https://pf-seraerror.herokuapp.com/user/${e}`
     )
+    dispatch(bannedFiltering(null))
     dispatch(getTask())
     console.log("soy respuesta de delete user", response.data)
   }
@@ -37,6 +41,7 @@ const Banned = () => {
       `https://pf-seraerror.herokuapp.com/user/${e}`,
       { status: "user" }
     )
+    dispatch(bannedFiltering(null))
     dispatch(getTask())
     console.log("soy respuesta de unban user", response.data)
   }
@@ -46,9 +51,12 @@ const Banned = () => {
       `https://pf-seraerror.herokuapp.com/user/${e}`,
       { status: "admin" }
     )
+    dispatch(bannedFiltering(null))
     dispatch(getTask())
     console.log("soy respuesta de upgrate user", response.data)
   }
+  let isNull = banned
+  bannedFiltered ? (isNull = bannedFiltered) : (isNull = banned)
 
   return (
     <div className="Table2">
@@ -60,7 +68,12 @@ const Banned = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell></TableCell>
+              <TableCell>
+                <Filters
+                  flightsComponent={banned}
+                  dispatched={bannedFiltering}
+                />
+              </TableCell>
               <TableCell align="left">Name</TableCell>
               <TableCell align="left">Surname</TableCell>
               <TableCell align="left">Email</TableCell>
@@ -71,7 +84,7 @@ const Banned = () => {
             </TableRow>
           </TableHead>
           <TableBody style={{ color: "white" }}>
-            {banned.map((e, i) => (
+            {isNull.map((e, i) => (
               <TableRow
                 key={i}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

@@ -17,9 +17,16 @@ import {
   BsFillArrowDownSquareFill,
   BsFillArrowUpSquareFill,
 } from "react-icons/bs"
+import {
+  adminFiltering,
+  customerFiltered,
+  customerFiltering,
+} from "../../features/tasks"
+import Filters from "../filters/Filters"
 
 const Customers = () => {
   const customers = useSelector(state => state.tasks.users)
+  const customerFiltered = useSelector(state => state.tasks.customerFiltered)
   const users = customers.filter(e => e.status === "user")
   const dispatch = useDispatch()
 
@@ -33,6 +40,7 @@ const Customers = () => {
       `https://pf-seraerror.herokuapp.com/user/${e}`,
       { status: "admin" }
     )
+    dispatch(customerFiltering(null))
     dispatch(getTask())
     console.log("soy respuesta de upgrate user", response.data)
   }
@@ -41,6 +49,7 @@ const Customers = () => {
     const response = await axios.delete(
       `https://pf-seraerror.herokuapp.com/user/${e}`
     )
+    dispatch(customerFiltering(null))
     dispatch(getTask())
     console.log("soy respuesta de delete user", response.data)
   }
@@ -50,9 +59,13 @@ const Customers = () => {
       `https://pf-seraerror.herokuapp.com/user/${e}`,
       { status: "banned" }
     )
+    dispatch(customerFiltering(null))
     dispatch(getTask())
     console.log("soy respuesta de ban user", e)
   }
+  let isNull = users
+  customerFiltered ? (isNull = customerFiltered) : (isNull = users)
+
   return (
     <div className="Table2">
       <h2 className="centrar title">Customers</h2>
@@ -64,7 +77,12 @@ const Customers = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell></TableCell>
+              <TableCell>
+                <Filters
+                  flightsComponent={users}
+                  dispatched={customerFiltering}
+                />
+              </TableCell>
               <TableCell align="left">Name</TableCell>
               <TableCell align="left">Surname</TableCell>
               <TableCell align="left">Email</TableCell>
@@ -75,7 +93,7 @@ const Customers = () => {
             </TableRow>
           </TableHead>
           <TableBody style={{ color: "white" }}>
-            {users.map((e, i) => (
+            {isNull.map((e, i) => (
               <TableRow
                 key={i}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

@@ -3,6 +3,7 @@ import "./Orders.css"
 import axios from "axios"
 import { DatePicker, TimePicker } from "antd"
 import moment from "moment"
+import Paginado from "../paginado/Paginado"
 const { RangePicker } = DatePicker
 
 const Orders = () => {
@@ -60,6 +61,7 @@ const Orders = () => {
   return (
     <div className="order">
       <h2 className="title">Create Product</h2>
+
       <form className="form">
         <div>
           <DatePicker onChange={handleChange2} />

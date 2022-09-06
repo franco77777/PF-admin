@@ -13,11 +13,15 @@ import moment from "moment"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getFlights } from "../../features/orders"
+import Filters from "../filters/Filters"
+import { filtered2 } from "../../features/tasks"
 import "./Flights.css"
+import { IoSettingsSharp } from "react-icons/io5"
 
 const Flights = () => {
   const dispatch = useDispatch()
   const flights = useSelector(state => state.tasks.flights)
+  const flightsFiltered2 = useSelector(state => state.tasks.flightsFiltered2)
   const [modal, setModal] = useState(false)
   const [place, setPlace] = useState({})
   const [order, setOrder] = useState({})
@@ -71,7 +75,8 @@ const Flights = () => {
   const handleChange3 = (a, b) => {
     setOrder({ ...order, departs: b })
   }
-
+  let isNull = flights
+  flightsFiltered2 ? (isNull = flightsFiltered2) : (isNull = flights)
   console.log("soy flights", flights)
 
   return (
@@ -85,7 +90,9 @@ const Flights = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell></TableCell>
+              <TableCell>
+                <Filters flightsComponent={flights} dispatched={filtered2} />
+              </TableCell>
               <TableCell>Destination</TableCell>
               <TableCell>Airport</TableCell>
               <TableCell>Gate</TableCell>
@@ -96,13 +103,14 @@ const Flights = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {flights.map((e, i) => (
+            {isNull.map((e, i) => (
               <TableRow
                 key={i}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell>
                   <Button
+                    size="small"
                     type="primary"
                     onClick={() =>
                       abrirModal({
@@ -116,7 +124,11 @@ const Flights = () => {
                       })
                     }
                   >
-                    Modify
+                    <IoSettingsSharp
+                      className="config"
+                      value={{ color: "white" }}
+                      color="white"
+                    />
                   </Button>
                 </TableCell>
                 <TableCell>{e.destination}</TableCell>

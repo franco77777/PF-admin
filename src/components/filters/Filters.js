@@ -7,11 +7,11 @@ import { ImFilter } from "react-icons/im"
 import { filtered } from "../../features/tasks"
 const { Search } = Input
 
-const Filters = () => {
-  const flights = useSelector(state => state.tasks.flights)
+const Filters = ({ flightsComponent, dispatched }) => {
+  /*  const flights = useSelector(state => state.tasks.flights)
   const flightsAv = useSelector(state => state.tasks.flightsAv)
   const flightsFiltered = useSelector(state => state.tasks.flightsFiltered)
-  const dispatch = useDispatch()
+  */ const dispatch = useDispatch()
   const [defaultValue, setDefaultValue] = useState(null)
   const [modal, setModal] = useState(false)
   const [filter, setFilter] = useState(null)
@@ -20,7 +20,7 @@ const Filters = () => {
 
   const handleChange = e => {
     setDefaultValue(null)
-    const response = flights.map(d => d[e])
+    const response = flightsComponent.map(d => d[e])
     const dataArr = new Set(response)
     let result = [...dataArr]
     setFilter(result)
@@ -29,11 +29,10 @@ const Filters = () => {
     }, 300)
   }
   const filterChange = e => {
-    const responde = flights.filter(d => d[defaultValue] === e)
+    const responde = flightsComponent.filter(d => d[defaultValue] === e)
     console.log("soy filtered", responde)
-    dispatch(filtered(responde))
+    dispatch(dispatched(responde))
     //cerrarModal2()
-    console.log("soy flights", flights)
   }
   const putFlight = () => {
     console.log("hola")
@@ -54,11 +53,11 @@ const Filters = () => {
   }
 
   const resetList = () => {
-    dispatch(filtered(null))
+    dispatch(dispatched(null))
     //    cerrarModal2()
   }
 
-  const a = flights.length && Object.keys(flights[0])
+  const a = flightsComponent.length && Object.keys(flightsComponent[0])
 
   const onSearch = d => {
     //dispatch(filtering(e.target.value))
@@ -73,9 +72,9 @@ const Filters = () => {
     })
     console.log("soy soy", soy) */
 
-    const soy = [...flightsAv].filter(e => {
+    const soy = [...flightsComponent].filter(e => {
       let a = Object.values(e)
-      for (let i of a) {
+      for (let i of a.slice(1, a.length)) {
         if (
           i
             .toString()
@@ -85,29 +84,29 @@ const Filters = () => {
           return e
       }
     })
-    dispatch(filtered(soy))
+    dispatch(dispatched(soy))
     console.log("soy soy", soy)
   }
 
-  useEffect(() => {
-    dispatch(getFlights())
-  }, [])
-
   return (
-    <div>
+    <div className="filterList">
       <Button size="small" type="primary" onClick={() => abrirModal2()}>
         <ImFilter />
       </Button>
       <Modal
-        centered
-        width={300}
+        style={{ top: 12, right: 45 }}
+        width={250}
         title="Filters"
         visible={modal}
         onCancel={cerrarModal2}
         onOk={accion}
         footer={[
-          <Button onClick={resetList}>Reset List</Button>,
-          <Button onClick={cerrarModal2}>Close</Button>,
+          <Button onClick={resetList} type="primary">
+            Reset List
+          </Button>,
+          <Button onClick={cerrarModal2} type="primary">
+            Close
+          </Button>,
         ]}
       >
         <Space direction="vertical">
@@ -120,7 +119,7 @@ const Filters = () => {
         </Space>
         <Select
           defaultValue="filter by"
-          style={{ width: 120 }}
+          style={{ width: 120, left: 33, top: 5 }}
           onChange={handleChange}
           allowClear
         >
@@ -136,7 +135,7 @@ const Filters = () => {
         {defaultValue && (
           <Select
             onChange={filterChange}
-            style={{ width: 120 }}
+            style={{ width: 120, left: 33, top: 10 }}
             defaultValue={defaultValue}
             allowClear
           >
