@@ -1,40 +1,35 @@
-/* import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getFlights } from "../../features/orders"
+import { paginadoFiltering } from "../../features/tasks"
 import "./Paginado.css"
 
 const Paginado = ({ filtered }) => {
+  const paginadoState = useSelector(state => state.tasks.paginado)
   const [inputPaginado, setInputPaginado] = useState("")
-  const [multiplicador, setMultiplicador] = useState(0)
+  const [sumador, setSumador] = useState(7)
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getFlights())
-  }, [])
-
-  let final = 7 + multiplicador //19-29
-  let inicio = final - 7 //
-  let paginados = filtered.slice(inicio, final)
+  let inicio = sumador - 7 //19-29
 
   let disablePrev = false
-  if (inicio > 6) {
+  if (inicio > 7) {
     disablePrev = true
   }
   let disableNext = true
-  if (final >= filtered.length) {
+  if (sumador >= filtered.length) {
     disableNext = false
   }
 
   const paginado = e => {
-    if (e.target.value === "+") {
-      setMultiplicador(multiplicador + 7)
+    if (e.target.value === "suma") {
+      setSumador(sumador + 7)
+    } else if (e.target.value === "resta") {
+      setSumador(sumador - 7)
     }
-    if (e.target.value === "-") {
-      setMultiplicador(multiplicador - 7)
-    }
-    console.log(multiplicador)
-    setInputPaginado("")
+
+    console.log("soy paginadoState", paginadoState)
   }
 
   let botones2 = Math.ceil(filtered.length / 7)
@@ -48,7 +43,7 @@ const Paginado = ({ filtered }) => {
       return setInputPaginado("")
     }
     setInputPaginado(e.target.value)
-    setMultiplicador(e.target.value * 7 - 7)
+    setSumador(e.target.value * 7 - 7)
   }
 
   return (
@@ -56,7 +51,7 @@ const Paginado = ({ filtered }) => {
       <button
         className="botoncuatro"
         onClick={paginado}
-        value="-"
+        value="resta"
         disabled={!disablePrev}
       >
         <div className="icono1">
@@ -78,18 +73,18 @@ const Paginado = ({ filtered }) => {
       </button>
       <div className="padreinputpaginado">
         <input
-          onChange={inputChange}
-          value={inputPaginado}
+          //onChange={inputChange}
+          //value={inputPaginado}
           type="text"
           className="inputpaginado"
-          placeholder={Math.round(multiplicador / 7 + 1)}
+          //placeholder={Math.round(multiplicador / 7)}
         />
-        &nbsp; of &nbsp;{a.length}
+        &nbsp; of &nbsp;{botones2}
       </div>
       <button
         className="botoncinco"
         onClick={paginado}
-        value="+"
+        value="suma"
         disabled={!disableNext}
       >
         <div className="icono">
@@ -114,4 +109,3 @@ const Paginado = ({ filtered }) => {
 }
 
 export default Paginado
- */

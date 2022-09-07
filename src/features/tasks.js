@@ -12,6 +12,10 @@ export const taskSlice = createSlice({
     adminFiltered: null,
     customerFiltered: null,
     bannedFiltered: null,
+    paginado: {
+      inicio: 0,
+      final: 7,
+    },
     isLoading: false,
   },
   reducers: {
@@ -31,6 +35,9 @@ export const taskSlice = createSlice({
     },
     bannedFiltering: (state, action) => {
       state.bannedFiltered = action.payload
+    },
+    paginadoFiltering: (state, action) => {
+      state.paginado = action.payload
     },
 
     filtered2: (state, action) => {
@@ -83,5 +90,6 @@ export const {
   adminFiltering,
   customerFiltering,
   bannedFiltering,
+  paginadoFiltering,
 } = taskSlice.actions
 export default taskSlice.reducer
