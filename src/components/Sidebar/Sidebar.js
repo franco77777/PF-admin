@@ -8,8 +8,8 @@ import { RiAdminLine } from "react-icons/ri"
 import { MdOutlineSell } from "react-icons/md"
 import { ImUserTie } from "react-icons/im"
 import { motion } from "framer-motion"
-
 import { UilBars } from "@iconscout/react-unicons"
+import logo from "../imgs/Logo-Color.PNG"
 
 const Sidebar = ({ selected, setSelected }) => {
   const [expanded, setExpaned] = useState(true)
@@ -39,6 +39,9 @@ const Sidebar = ({ selected, setSelected }) => {
       >
         <article className="logo" onClick={() => setSelected(0)}>
           <GiAirplaneDeparture className="logo2" />
+          {/*  <div className="logo2">
+            <img src={logo} alt="logo" />
+          </div> */}
           <span className="logo3">Fly Mex</span>
         </article>
         <article className="menu">

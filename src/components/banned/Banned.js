@@ -16,6 +16,9 @@ import { getTask } from "../../features/orders"
 import { GiJumpAcross } from "react-icons/gi"
 import { bannedFiltering } from "../../features/tasks"
 import Filters from "../filters/Filters"
+import { Button } from "antd"
+import { FaArrowUp } from "react-icons/fa"
+import { AiOutlineClose } from "react-icons/ai"
 
 const Banned = () => {
   const dispatch = useDispatch()
@@ -67,7 +70,7 @@ const Banned = () => {
     disablePrev = true
   }
   let disableNext = true
-  if (sumador > isNull.length) {
+  if (sumador >= isNull.length) {
     disableNext = false
   }
 
@@ -161,10 +164,12 @@ const Banned = () => {
           <TableHead>
             <TableRow>
               <TableCell>
-                <Filters
-                  flightsComponent={banned}
-                  dispatched={bannedFiltering}
-                />
+                <div className="centrarfilter">
+                  <Filters
+                    flightsComponent={banned}
+                    dispatched={bannedFiltering}
+                  />
+                </div>
               </TableCell>
               <TableCell align="left">Name</TableCell>
               <TableCell align="left">Surname</TableCell>
@@ -182,10 +187,16 @@ const Banned = () => {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell>
-                  <div className="botonIcons">
-                    <BsFillArrowUpSquareFill onClick={() => unban(e._id)} />
-                    <GiJumpAcross onClick={() => upgrade(e._id)} />
-                    <MdDelete onClick={() => Delete(e._id)} />
+                  <div className="icons3">
+                    <Button size="small" type="primary">
+                      <FaArrowUp onClick={() => unban(e._id)} />
+                    </Button>
+                    <Button size="small" type="primary">
+                      <GiJumpAcross onClick={() => upgrade(e._id)} />
+                    </Button>
+                    <Button size="small" type="primary">
+                      <AiOutlineClose onClick={() => Delete(e._id)} />
+                    </Button>
                   </div>
                 </TableCell>
                 <TableCell>{e.name}</TableCell>

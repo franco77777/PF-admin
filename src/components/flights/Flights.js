@@ -87,7 +87,7 @@ const Flights = () => {
     disablePrev = true
   }
   let disableNext = true
-  if (sumador > isNull.length) {
+  if (sumador >= isNull.length) {
     disableNext = false
   }
 
@@ -115,7 +115,7 @@ const Flights = () => {
   console.log("soy flights", flights)
 
   return (
-    <div className="Table2 flightsTable">
+    <div className="Table2 ">
       <h2 className="centrar title">Flights in Progress</h2>
       <div className="paginado">
         <button

@@ -94,7 +94,7 @@ const Filters = ({ flightsComponent, dispatched }) => {
         <ImFilter />
       </Button>
       <Modal
-        style={{ top: 12, right: 45 }}
+        style={window.innerWidth <= 768 ? { top: 550 } : { top: 12, right: 45 }}
         width={250}
         title="Filters"
         visible={modal}

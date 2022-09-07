@@ -11,11 +11,13 @@ import TableContainer from "@mui/material/TableContainer"
 import "./Admins.css"
 import { getTask } from "../../features/orders"
 import axios from "axios"
-import { BsFillArrowDownSquareFill } from "react-icons/bs"
-import { MdDelete } from "react-icons/md"
+import { FaArrowDown } from "react-icons/fa"
+import { AiOutlineClose } from "react-icons/ai"
 import { GiJumpAcross } from "react-icons/gi"
 import { adminFiltering } from "../../features/tasks"
 import Filters from "../filters/Filters"
+import AddAdmins from "../addAdmins/AddAdmins"
+import { Button } from "antd"
 
 const Admins = () => {
   const customers = useSelector(state => state.tasks.users)
@@ -68,7 +70,7 @@ const Admins = () => {
     disablePrev = true
   }
   let disableNext = true
-  if (sumador > isNull.length) {
+  if (sumador >= isNull.length) {
     disableNext = false
   }
 
@@ -162,7 +164,13 @@ const Admins = () => {
           <TableHead>
             <TableRow>
               <TableCell>
-                <Filters flightsComponent={users} dispatched={adminFiltering} />
+                <span className="dosiconos">
+                  <Filters
+                    flightsComponent={users}
+                    dispatched={adminFiltering}
+                  />
+                  <AddAdmins />
+                </span>
               </TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Surname</TableCell>
@@ -180,10 +188,16 @@ const Admins = () => {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell>
-                  <div className="botonIcons">
-                    <BsFillArrowDownSquareFill onClick={() => degrade(e._id)} />
-                    <GiJumpAcross onClick={() => ban(e._id)} />
-                    <MdDelete onClick={() => Delete(e._id)} />
+                  <div className="icons3">
+                    <Button type="primary" size="small">
+                      <FaArrowDown onClick={() => degrade(e._id)} />
+                    </Button>
+                    <Button type="primary" size="small">
+                      <GiJumpAcross onClick={() => ban(e._id)} />
+                    </Button>
+                    <Button type="primary" size="small">
+                      <AiOutlineClose onClick={() => Delete(e._id)} />
+                    </Button>
                   </div>
                 </TableCell>
                 <TableCell>{e.name}</TableCell>

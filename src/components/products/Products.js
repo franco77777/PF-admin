@@ -18,7 +18,6 @@ import { GrPowerReset } from "react-icons/gr"
 import Filters from "../filters/Filters"
 import "./Products.css"
 import { filtered } from "../../features/tasks"
-import Paginado from "../paginado/Paginado"
 
 const Products = () => {
   const dispatch = useDispatch()
@@ -30,7 +29,7 @@ const Products = () => {
   const [modal, setModal] = useState(false)
   const [place, setPlace] = useState({})
   const [order, setOrder] = useState()
-  const [sumador, setSumador] = useState(7)
+  const [sumador, setSumador] = useState(6)
   const [inputPaginado, setInputPaginado] = useState("")
 
   //const flights = flight.sort((a, b) => parseInt(a.date) - parseInt(b.date))
@@ -97,22 +96,22 @@ const Products = () => {
   let isNull = flights
   flightsFiltered ? (isNull = flightsFiltered) : (isNull = flightsAv)
 
-  let inicio = sumador - 7 //19-29
+  let inicio = sumador - 6 //19-29
 
   let disablePrev = false
-  if (inicio > 6) {
+  if (inicio > 5) {
     disablePrev = true
   }
   let disableNext = true
-  if (sumador > isNull.length) {
+  if (sumador >= isNull.length) {
     disableNext = false
   }
 
   const paginado = e => {
     if (e.target.value === "suma") {
-      setSumador(sumador + 7)
+      setSumador(sumador + 6)
     } else if (e.target.value === "resta") {
-      setSumador(sumador - 7)
+      setSumador(sumador - 6)
     }
     setInputPaginado("")
     console.log("soy paginadoState", paginadoState)
@@ -122,12 +121,12 @@ const Products = () => {
     if (
       !/^([0-9])*$/.test(e.target.value) ||
       e.target.value < 1 ||
-      e.target.value > Math.ceil(isNull.length / 7)
+      e.target.value > Math.ceil(isNull.length / 6)
     ) {
       return setInputPaginado("")
     }
     setInputPaginado(e.target.value)
-    setSumador(e.target.value * 7)
+    setSumador(e.target.value * 6)
   }
 
   console.log("soy order", order)
@@ -136,7 +135,7 @@ const Products = () => {
   console.log("soy null", isNull)
   console.log("soy isNull slice", isNull.slice(inicio, sumador))
   return (
-    <div className="Table2 flightsTable">
+    <div className="Table2 ">
       <h2 className="centrar title">Planned Trips</h2>
       <div className="paginado">
         <button
@@ -168,9 +167,9 @@ const Products = () => {
             value={inputPaginado}
             type="text"
             className="inputpaginado"
-            placeholder={Math.round(sumador / 7)}
+            placeholder={Math.round(sumador / 6)}
           />
-          &nbsp; of &nbsp;{Math.ceil(isNull.length / 7)}
+          &nbsp; of &nbsp;{Math.ceil(isNull.length / 6)}
         </div>
         <button
           className="botoncinco"

@@ -23,6 +23,9 @@ import {
   customerFiltering,
 } from "../../features/tasks"
 import Filters from "../filters/Filters"
+import { Button } from "antd"
+import { FaArrowDown, FaArrowUp } from "react-icons/fa"
+import { AiOutlineClose } from "react-icons/ai"
 
 const Customers = () => {
   const customers = useSelector(state => state.tasks.users)
@@ -76,7 +79,7 @@ const Customers = () => {
     disablePrev = true
   }
   let disableNext = true
-  if (sumador > isNull.length) {
+  if (sumador >= isNull.length) {
     disableNext = false
   }
 
@@ -172,10 +175,12 @@ const Customers = () => {
           <TableHead>
             <TableRow>
               <TableCell>
-                <Filters
-                  flightsComponent={users}
-                  dispatched={customerFiltering}
-                />
+                <div className="centrarfilter">
+                  <Filters
+                    flightsComponent={users}
+                    dispatched={customerFiltering}
+                  />
+                </div>
               </TableCell>
               <TableCell align="left">Name</TableCell>
               <TableCell align="left">Surname</TableCell>
@@ -193,10 +198,16 @@ const Customers = () => {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell>
-                  <div className="botonIcons">
-                    <BsFillArrowDownSquareFill onClick={() => ban(e._id)} />
-                    <BsFillArrowUpSquareFill onClick={() => upgrade(e._id)} />
-                    <MdDelete onClick={() => Delete(e._id)} />
+                  <div className="icons3">
+                    <Button size="small" type="primary">
+                      <FaArrowDown onClick={() => ban(e._id)} />
+                    </Button>
+                    <Button size="small" type="primary">
+                      <FaArrowUp onClick={() => upgrade(e._id)} />
+                    </Button>
+                    <Button size="small" type="primary">
+                      <AiOutlineClose onClick={() => Delete(e._id)} />
+                    </Button>
                   </div>
                 </TableCell>
                 <TableCell>{e.name}</TableCell>
