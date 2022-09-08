@@ -38,6 +38,7 @@ const Banned = () => {
     )
     dispatch(bannedFiltering(null))
     dispatch(getTask())
+    alert(response.data)
     console.log("soy respuesta de delete user", response.data)
   }
 
@@ -48,6 +49,7 @@ const Banned = () => {
     )
     dispatch(bannedFiltering(null))
     dispatch(getTask())
+    alert(response.data)
     console.log("soy respuesta de unban user", response.data)
   }
 
@@ -58,6 +60,7 @@ const Banned = () => {
     )
     dispatch(bannedFiltering(null))
     dispatch(getTask())
+    alert(response.data)
     console.log("soy respuesta de upgrate user", response.data)
   }
   let isNull = banned

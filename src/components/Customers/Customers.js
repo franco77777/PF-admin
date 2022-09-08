@@ -48,6 +48,7 @@ const Customers = () => {
     )
     dispatch(customerFiltering(null))
     dispatch(getTask())
+    alert(response.data)
     console.log("soy respuesta de upgrate user", response.data)
   }
 
@@ -57,6 +58,7 @@ const Customers = () => {
     )
     dispatch(customerFiltering(null))
     dispatch(getTask())
+    alert(response.data)
     console.log("soy respuesta de delete user", response.data)
   }
 
@@ -67,6 +69,7 @@ const Customers = () => {
     )
     dispatch(customerFiltering(null))
     dispatch(getTask())
+    alert(response.data)
     console.log("soy respuesta de ban user", e)
   }
   let isNull = users

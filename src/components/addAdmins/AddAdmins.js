@@ -69,7 +69,7 @@ const AddAdmins = () => {
       <Modal
         centered
         title="Create Admin"
-        visible={modal}
+        open={modal}
         onCancel={cerrarModal}
         onOk={accion}
         footer={[

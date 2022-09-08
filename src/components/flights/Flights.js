@@ -238,7 +238,7 @@ const Flights = () => {
       </TableContainer>
       <Modal
         title="title"
-        visible={modal}
+        open={modal}
         onCancel={cerrarModal}
         onOk={accion}
         footer={[

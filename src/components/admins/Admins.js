@@ -39,6 +39,7 @@ const Admins = () => {
     )
     dispatch(adminFiltering(null))
     dispatch(getTask())
+    alert(response.data)
     console.log("soy respuesta de degrade admin", response.data)
   }
 
@@ -48,6 +49,7 @@ const Admins = () => {
     )
     dispatch(adminFiltering(null))
     dispatch(getTask())
+    alert(response.data)
     console.log("soy respuesta de delete user", response.data)
   }
 
@@ -58,6 +60,7 @@ const Admins = () => {
     )
     dispatch(adminFiltering(null))
     dispatch(getTask())
+    alert(response.data)
     console.log("soy respuesta de ban user", response.data)
   }
   let isNull = users
