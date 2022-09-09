@@ -19,6 +19,8 @@ import Filters from "../filters/Filters"
 import AddAdmins from "../addAdmins/AddAdmins"
 import { Button } from "antd"
 
+import Swal from "sweetalert2"
+
 const Admins = () => {
   const customers = useSelector(state => state.tasks.users)
   const adminFiltered = useSelector(state => state.tasks.adminFiltered)
@@ -32,36 +34,89 @@ const Admins = () => {
     dispatch(getTask())
   }, [dispatch])
 
-  const degrade = async e => {
-    const response = await axios.put(
-      `https://pf-seraerror.herokuapp.com/user/${e}`,
-      { status: "user" }
-    )
-    dispatch(adminFiltering(null))
-    dispatch(getTask())
-    alert(response.data)
-    console.log("soy respuesta de degrade admin", response.data)
+  const degrade = async (e, b) => {
+    return Swal.fire({
+      icon: "warning",
+      title: "Warning",
+      text: `you want to degrade ${b}?`,
+      showDenyButton: true,
+      denyButtonText: "No",
+      confirmButtonText: "yes",
+      confirmButtonColor: "#1890ff",
+    }).then(async response => {
+      if (response.isConfirmed) {
+        await axios.put(`https://pf-seraerror.herokuapp.com/user/${e}`, {
+          status: "user",
+        })
+        dispatch(adminFiltering(null))
+        dispatch(getTask())
+        Swal.fire({
+          icon: "success",
+          tittle: "Success",
+          text: `${b} is now a user`,
+          timer: 1500,
+          confirmButtonColor: "#2f9b05",
+        })
+      } else {
+        return
+      }
+    })
   }
 
-  const Delete = async e => {
-    const response = await axios.delete(
-      `https://pf-seraerror.herokuapp.com/user/${e}`
-    )
-    dispatch(adminFiltering(null))
-    dispatch(getTask())
-    alert(response.data)
-    console.log("soy respuesta de delete user", response.data)
+  const Delete = async (e, b) => {
+    return Swal.fire({
+      icon: "error",
+      title: "Warning",
+      text: `you want to eliminate ${b}?`,
+      showDenyButton: true,
+      denyButtonText: "No",
+      confirmButtonText: "yes",
+      confirmButtonColor: "#1890ff",
+    }).then(async response => {
+      if (response.isConfirmed) {
+        await axios.delete(`https://pf-seraerror.herokuapp.com/user/${e}`)
+        dispatch(adminFiltering(null))
+        dispatch(getTask())
+        Swal.fire({
+          icon: "success",
+          tittle: "Success",
+          text: `${b} admin was removed`,
+          timer: 1500,
+          confirmButtonColor: "#2f9b05",
+        })
+      } else {
+        return
+      }
+    })
   }
 
-  const ban = async e => {
-    const response = await axios.put(
-      `https://pf-seraerror.herokuapp.com/user/${e}`,
-      { status: "banned" }
-    )
-    dispatch(adminFiltering(null))
-    dispatch(getTask())
-    alert(response.data)
-    console.log("soy respuesta de ban user", response.data)
+  const ban = async (e, b) => {
+    return Swal.fire({
+      icon: "warning",
+      title: "Warning",
+      text: `you want to ban ${b}?`,
+      showDenyButton: true,
+      denyButtonText: "No",
+      confirmButtonText: "yes",
+      confirmButtonColor: "#1890ff",
+    }).then(async response => {
+      if (response.isConfirmed) {
+        await axios.put(`https://pf-seraerror.herokuapp.com/user/${e}`, {
+          status: "banned",
+        })
+        dispatch(adminFiltering(null))
+        dispatch(getTask())
+        Swal.fire({
+          icon: "success",
+          tittle: "Success",
+          text: `${b} was banned`,
+          timer: 1500,
+          confirmButtonColor: "#2f9b05",
+        })
+      } else {
+        return
+      }
+    })
   }
   let isNull = users
   adminFiltered ? (isNull = adminFiltered) : (isNull = users)
@@ -193,13 +248,13 @@ const Admins = () => {
                 <TableCell>
                   <div className="icons3">
                     <Button type="primary" size="small">
-                      <FaArrowDown onClick={() => degrade(e._id)} />
+                      <FaArrowDown onClick={() => degrade(e._id, e.email)} />
                     </Button>
                     <Button type="primary" size="small">
-                      <GiJumpAcross onClick={() => ban(e._id)} />
+                      <GiJumpAcross onClick={() => ban(e._id, e.email)} />
                     </Button>
                     <Button type="primary" size="small">
-                      <AiOutlineClose onClick={() => Delete(e._id)} />
+                      <AiOutlineClose onClick={() => Delete(e._id, e.email)} />
                     </Button>
                   </div>
                 </TableCell>

@@ -26,6 +26,7 @@ import Filters from "../filters/Filters"
 import { Button } from "antd"
 import { FaArrowDown, FaArrowUp } from "react-icons/fa"
 import { AiOutlineClose } from "react-icons/ai"
+import Swal from "sweetalert2"
 
 const Customers = () => {
   const customers = useSelector(state => state.tasks.users)
@@ -41,36 +42,89 @@ const Customers = () => {
   }, [dispatch])
   console.log("soy users", users)
 
-  const upgrade = async e => {
-    const response = await axios.put(
-      `https://pf-seraerror.herokuapp.com/user/${e}`,
-      { status: "admin" }
-    )
-    dispatch(customerFiltering(null))
-    dispatch(getTask())
-    alert(response.data)
-    console.log("soy respuesta de upgrate user", response.data)
+  const upgrade = async (e, b) => {
+    return Swal.fire({
+      icon: "info",
+      title: "Warning",
+      text: `you want to give administrator to ${b}?`,
+      showDenyButton: true,
+      denyButtonText: "No",
+      confirmButtonText: "yes",
+      confirmButtonColor: "#1890ff",
+    }).then(async response => {
+      if (response.isConfirmed) {
+        await axios.put(`https://pf-seraerror.herokuapp.com/user/${e}`, {
+          status: "admin",
+        })
+        dispatch(customerFiltering(null))
+        dispatch(getTask())
+        Swal.fire({
+          icon: "success",
+          tittle: "Success",
+          text: `${b} now is admin`,
+          timer: 1500,
+          confirmButtonColor: "#2f9b05",
+        })
+      } else {
+        return
+      }
+    })
   }
 
-  const Delete = async e => {
-    const response = await axios.delete(
-      `https://pf-seraerror.herokuapp.com/user/${e}`
-    )
-    dispatch(customerFiltering(null))
-    dispatch(getTask())
-    alert(response.data)
-    console.log("soy respuesta de delete user", response.data)
+  const Delete = async (e, b) => {
+    return Swal.fire({
+      icon: "error",
+      title: "Warning",
+      text: `you want to eliminate ${b}?`,
+      showDenyButton: true,
+      denyButtonText: "No",
+      confirmButtonText: "yes",
+      confirmButtonColor: "#1890ff",
+    }).then(async response => {
+      if (response.isConfirmed) {
+        await axios.delete(`https://pf-seraerror.herokuapp.com/user/${e}`)
+        dispatch(customerFiltering(null))
+        dispatch(getTask())
+        Swal.fire({
+          icon: "success",
+          tittle: "Success",
+          text: `${b} banned was removed`,
+          timer: 1500,
+          confirmButtonColor: "#2f9b05",
+        })
+      } else {
+        return
+      }
+    })
   }
 
-  const ban = async e => {
-    const response = await axios.put(
-      `https://pf-seraerror.herokuapp.com/user/${e}`,
-      { status: "banned" }
-    )
-    dispatch(customerFiltering(null))
-    dispatch(getTask())
-    alert(response.data)
-    console.log("soy respuesta de ban user", e)
+  const ban = async (e, b) => {
+    return Swal.fire({
+      icon: "warning",
+      title: "Warning",
+      text: `you want to ban ${b}?`,
+      showDenyButton: true,
+      denyButtonText: "No",
+      confirmButtonText: "yes",
+      confirmButtonColor: "#1890ff",
+    }).then(async response => {
+      if (response.isConfirmed) {
+        await axios.put(`https://pf-seraerror.herokuapp.com/user/${e}`, {
+          status: "banned",
+        })
+        dispatch(customerFiltering(null))
+        dispatch(getTask())
+        Swal.fire({
+          icon: "success",
+          tittle: "Success",
+          text: `${b} was unbaned`,
+          timer: 1500,
+          confirmButtonColor: "#2f9b05",
+        })
+      } else {
+        return
+      }
+    })
   }
   let isNull = users
   customerFiltered ? (isNull = customerFiltered) : (isNull = users)
@@ -203,13 +257,13 @@ const Customers = () => {
                 <TableCell>
                   <div className="icons3">
                     <Button size="small" type="primary">
-                      <FaArrowDown onClick={() => ban(e._id)} />
+                      <FaArrowDown onClick={() => ban(e._id, e.email)} />
                     </Button>
                     <Button size="small" type="primary">
-                      <FaArrowUp onClick={() => upgrade(e._id)} />
+                      <FaArrowUp onClick={() => upgrade(e._id, e.email)} />
                     </Button>
                     <Button size="small" type="primary">
-                      <AiOutlineClose onClick={() => Delete(e._id)} />
+                      <AiOutlineClose onClick={() => Delete(e._id, e.email)} />
                     </Button>
                   </div>
                 </TableCell>
