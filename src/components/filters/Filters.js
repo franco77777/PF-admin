@@ -54,24 +54,12 @@ const Filters = ({ flightsComponent, dispatched }) => {
 
   const resetList = () => {
     dispatch(dispatched(null))
-    //    cerrarModal2()
+    //cerrarModal2()
   }
 
   const a = flightsComponent.length && Object.keys(flightsComponent[0])
 
   const onSearch = d => {
-    //dispatch(filtering(e.target.value))
-    /*  const soy = flightsAv.filter(e => {
-      let a = Object.values(e)
-      for (let i of a) {
-        if (typeof i !== "number") {
-          if (i.toLowerCase() === d.target.value.toLowerCase()) return i
-        }
-        if (i === d.target.value) return i
-      }
-    })
-    console.log("soy soy", soy) */
-
     const soy = [...flightsComponent].filter(e => {
       let a = Object.values(e)
       for (let i of a.slice(1, a.length)) {
@@ -94,7 +82,7 @@ const Filters = ({ flightsComponent, dispatched }) => {
         <ImFilter />
       </Button>
       <Modal
-        style={window.innerWidth <= 768 ? { top: 550 } : { top: 12, right: 45 }}
+        style={window.innerWidth <= 768 ? { top: 400 } : { top: 12, right: 35 }}
         width={250}
         title="Filters"
         open={modal}
