@@ -25,6 +25,7 @@ const Admins = () => {
   const customers = useSelector(state => state.tasks.users)
   const adminFiltered = useSelector(state => state.tasks.adminFiltered)
   const users = customers.filter(e => e.status === "admin")
+
   const [sumador, setSumador] = useState(7)
   const [inputPaginado, setInputPaginado] = useState("")
 

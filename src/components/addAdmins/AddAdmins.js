@@ -1,14 +1,17 @@
 import { Button, Modal } from "antd"
 import axios from "axios"
 import React, { useState } from "react"
+import { AiFillEye } from "react-icons/ai"
 import { HiUserAdd } from "react-icons/hi"
 import { useDispatch } from "react-redux"
 import Swal from "sweetalert2"
 import { getTask } from "../../features/orders"
+import "./AddAdmins.css"
 
 const AddAdmins = () => {
   const [modal, setModal] = useState(false)
   const [place, setPlace] = useState({})
+  const [ojo, setOjo] = useState("password")
   const dispatch = useDispatch()
 
   const abrirModal = e => {
@@ -87,6 +90,10 @@ const AddAdmins = () => {
     console.log("soy el post", response.data)
   }
 
+  const ojoChange = () => {
+    if (ojo === "password") setOjo("text")
+    else setOjo("password")
+  }
   return (
     <div>
       <Button type="primary" size="small" onClick={() => abrirModal()}>
@@ -144,7 +151,7 @@ const AddAdmins = () => {
             <input
               name="password"
               onChange={handleChange}
-              type="text"
+              type={ojo}
               id="floating_outlined2"
               class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
@@ -155,6 +162,9 @@ const AddAdmins = () => {
             >
               Password:
             </label>
+            <span className="ojoPadre2">
+              <AiFillEye className="ojo2" onClick={ojoChange} />
+            </span>
           </div>
 
           <div class="relative">

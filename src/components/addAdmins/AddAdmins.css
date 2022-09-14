@@ -1,0 +1,9 @@
+.ojoPadre2 {
+  position: absolute;
+  cursor: pointer;
+}
+.ojo2 {
+  position: absolute;
+  left: 160px;
+  top: -30px;
+}
