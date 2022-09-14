@@ -10,7 +10,6 @@ import TableContainer from "@mui/material/TableContainer"
 import { CgArrowDownR } from "react-icons/cg"
 import { MdDelete } from "react-icons/md"
 
-import "./Customers.css"
 import { getTask } from "../../features/orders"
 import axios from "axios"
 import {
@@ -27,6 +26,7 @@ import { Button } from "antd"
 import { FaArrowDown, FaArrowUp } from "react-icons/fa"
 import { AiOutlineClose } from "react-icons/ai"
 import Swal from "sweetalert2"
+import "./Customers.css"
 
 const Customers = () => {
   const customers = useSelector(state => state.tasks.users)
@@ -224,7 +224,6 @@ const Customers = () => {
       </div>
 
       <TableContainer
-        className="centrando"
         component={Paper}
         style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
       >
