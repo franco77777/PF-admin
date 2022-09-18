@@ -18,6 +18,7 @@ import { GrPowerReset } from "react-icons/gr"
 import Filters from "../filters/Filters"
 import "./Products.css"
 import { filtered } from "../../features/tasks"
+import { motion } from "framer-motion"
 
 const Products = () => {
   const dispatch = useDispatch()
@@ -31,6 +32,9 @@ const Products = () => {
   const [order, setOrder] = useState()
   const [sumador, setSumador] = useState(6)
   const [inputPaginado, setInputPaginado] = useState("")
+  const [exist, setExist] = useState(true)
+  const [right, setRight] = useState(false)
+  const [left, setLeft] = useState(false)
 
   //const flights = flight.sort((a, b) => parseInt(a.date) - parseInt(b.date))
   useEffect(() => {
@@ -109,12 +113,23 @@ const Products = () => {
 
   const paginado = e => {
     if (e.target.value === "suma") {
-      setSumador(sumador + 6)
+      setExist(false)
+      setLeft(false)
+      setTimeout(() => {
+        setRight(true)
+        setExist(true)
+        setSumador(sumador + 7)
+      })
     } else if (e.target.value === "resta") {
-      setSumador(sumador - 6)
+      setExist(false)
+      setRight(false)
+      setTimeout(() => {
+        setLeft(true)
+        setExist(true)
+        setSumador(sumador - 7)
+      })
     }
     setInputPaginado("")
-    console.log("soy paginadoState", paginadoState)
   }
 
   let inputChange = e => {
@@ -195,79 +210,106 @@ const Products = () => {
           <span>Next</span>
         </button>
       </div>
-      <TableContainer style={{ boxShadow: "0px 13px 20px 0px #80808029" }}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                <Filters flightsComponent={flightsAv} dispatched={filtered} />
-              </TableCell>
-              <TableCell>Destination</TableCell>
-              <TableCell>Origin</TableCell>
-              <TableCell>Turist</TableCell>
-              <TableCell>FirstClase</TableCell>
-              <TableCell>Departs</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>FlightID</TableCell>
-              <TableCell>Gate</TableCell>
-              <TableCell>Airport</TableCell>
-              <TableCell>Seating</TableCell>
-              <TableCell>Duration</TableCell>
-              <TableCell>Date</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {isNull.slice(inicio, sumador).map((e, i) => (
-              <TableRow
-                key={i}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+      {exist && (
+        <motion.div
+          initial={left || right ? "" : { y: 500, opacity: 0 }}
+          animate={left || right ? "" : { y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.div
+            initial={right && { x: 500, opacity: 0 }}
+            animate={right && { x: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.div
+              initial={left && { x: -500, opacity: 0 }}
+              animate={left && { x: 0, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <TableContainer
+                style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
               >
-                <TableCell>
-                  <Button
-                    size="small"
-                    type="primary"
-                    onClick={() =>
-                      abrirModal({
-                        destination: e.destination,
-                        departs: e.departs,
-                        origin: e.origin,
-                        price: e.price,
-                        firstclase: e.firstclase,
-                        status: e.status,
-                        flightId: e.flightId,
-                        gate: e.gate,
-                        airport: e.airport,
-                        seating: e.seating,
-                        duration: e.duration,
-                        date: e.date,
-                        id: e._id,
-                      })
-                    }
-                  >
-                    <IoSettingsSharp
-                      className="config"
-                      value={{ color: "white" }}
-                      color="white"
-                    />
-                  </Button>
-                </TableCell>
-                <TableCell>{e.destination}</TableCell>
-                <TableCell>{e.origin}</TableCell>
-                <TableCell>{e.price}</TableCell>
-                <TableCell>{e.firstclase}</TableCell>
-                <TableCell>{e.departs}</TableCell>
-                <TableCell>{e.status}</TableCell>
-                <TableCell>{e.flightId}</TableCell>
-                <TableCell>{e.gate}</TableCell>
-                <TableCell>{e.airport}</TableCell>
-                <TableCell>{e.seating}</TableCell>
-                <TableCell>{e.duration}</TableCell>
-                <TableCell>{e.date}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>
+                        <Filters
+                          flightsComponent={flightsAv}
+                          dispatched={filtered}
+                        />
+                      </TableCell>
+                      <TableCell>Destination</TableCell>
+                      <TableCell>Origin</TableCell>
+                      <TableCell>Turist</TableCell>
+                      <TableCell>FirstClase</TableCell>
+                      <TableCell>Departs</TableCell>
+                      <TableCell>Status</TableCell>
+                      <TableCell>FlightID</TableCell>
+                      <TableCell>Gate</TableCell>
+                      <TableCell>Airport</TableCell>
+                      <TableCell>Seating</TableCell>
+                      <TableCell>Duration</TableCell>
+                      <TableCell>Date</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {isNull.slice(inicio, sumador).map((e, i) => (
+                      <TableRow
+                        key={i}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell>
+                          <Button
+                            size="small"
+                            type="primary"
+                            onClick={() =>
+                              abrirModal({
+                                destination: e.destination,
+                                departs: e.departs,
+                                origin: e.origin,
+                                price: e.price,
+                                firstclase: e.firstclase,
+                                status: e.status,
+                                flightId: e.flightId,
+                                gate: e.gate,
+                                airport: e.airport,
+                                seating: e.seating,
+                                duration: e.duration,
+                                date: e.date,
+                                id: e._id,
+                              })
+                            }
+                          >
+                            <IoSettingsSharp
+                              className="config"
+                              value={{ color: "white" }}
+                              color="white"
+                            />
+                          </Button>
+                        </TableCell>
+                        <TableCell>{e.destination}</TableCell>
+                        <TableCell>{e.origin}</TableCell>
+                        <TableCell>{e.price}</TableCell>
+                        <TableCell>{e.firstclase}</TableCell>
+                        <TableCell>{e.departs}</TableCell>
+                        <TableCell>{e.status}</TableCell>
+                        <TableCell>{e.flightId}</TableCell>
+                        <TableCell>{e.gate}</TableCell>
+                        <TableCell>{e.airport}</TableCell>
+                        <TableCell>{e.seating}</TableCell>
+                        <TableCell>{e.duration}</TableCell>
+                        <TableCell>{e.date}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      )}
       <Modal
         title=""
         open={modal}

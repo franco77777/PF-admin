@@ -3,6 +3,7 @@ import "./Orders.css"
 import axios from "axios"
 import { DatePicker, TimePicker } from "antd"
 import moment from "moment"
+import Swal from "sweetalert2"
 
 const { RangePicker } = DatePicker
 
@@ -36,14 +37,26 @@ const Orders = () => {
 
   const submit = async () => {
     if (Object.keys(order).length !== 12) {
-      return alert("fill in all the fields")
+      return Swal.fire({
+        icon: "error",
+        title: "Warning",
+        text: `fill all the fields`,
+
+        confirmButtonText: "OK",
+        confirmButtonColor: "#1890ff",
+      })
     }
     const response = await axios.post(
       "https://pf-seraerror.herokuapp.com/flightsAvailable",
       order
     )
-    alert(response.data)
-    console.log("soy el post", response.data)
+    Swal.fire({
+      icon: "success",
+      tittle: "Success",
+      text: `order created`,
+      timer: 1500,
+      confirmButtonColor: "#2f9b05",
+    })
   }
 
   const handleChange2 = e => {

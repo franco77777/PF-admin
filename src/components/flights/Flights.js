@@ -17,6 +17,7 @@ import Filters from "../filters/Filters"
 import { filtered2 } from "../../features/tasks"
 import "./Flights.css"
 import { IoSettingsSharp } from "react-icons/io5"
+import { motion } from "framer-motion"
 
 const Flights = () => {
   const dispatch = useDispatch()
@@ -27,6 +28,10 @@ const Flights = () => {
   const [order, setOrder] = useState({})
   const [sumador, setSumador] = useState(7)
   const [inputPaginado, setInputPaginado] = useState("")
+  const [exist, setExist] = useState(true)
+  const [right, setRight] = useState(false)
+  const [left, setLeft] = useState(false)
+
   useEffect(() => {
     dispatch(getFlights())
   }, [])
@@ -93,9 +98,21 @@ const Flights = () => {
 
   const paginado = e => {
     if (e.target.value === "suma") {
-      setSumador(sumador + 7)
+      setExist(false)
+      setLeft(false)
+      setTimeout(() => {
+        setRight(true)
+        setExist(true)
+        setSumador(sumador + 7)
+      })
     } else if (e.target.value === "resta") {
-      setSumador(sumador - 7)
+      setExist(false)
+      setRight(false)
+      setTimeout(() => {
+        setLeft(true)
+        setExist(true)
+        setSumador(sumador - 7)
+      })
     }
     setInputPaginado("")
   }
@@ -175,67 +192,91 @@ const Flights = () => {
           <span>Next</span>
         </button>
       </div>
-
-      <TableContainer
-        className="centrarcaja"
-        style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
-      >
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                <Filters flightsComponent={flights} dispatched={filtered2} />
-              </TableCell>
-              <TableCell>Destination</TableCell>
-              <TableCell>Airport</TableCell>
-              <TableCell>Gate</TableCell>
-              <TableCell>Arrives</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>FlightID</TableCell>
-              <TableCell>Date</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {isNull.slice(inicio, sumador).map((e, i) => (
-              <TableRow
-                key={i}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+      {exist && (
+        <motion.div
+          initial={left || right ? "" : { y: 500, opacity: 0 }}
+          animate={left || right ? "" : { y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.div
+            initial={right && { x: 500, opacity: 0 }}
+            animate={right && { x: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.div
+              initial={left && { x: -500, opacity: 0 }}
+              animate={left && { x: 0, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <TableContainer
+                className="centrarcaja"
+                style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
               >
-                <TableCell>
-                  <Button
-                    size="small"
-                    type="primary"
-                    onClick={() =>
-                      abrirModal({
-                        destination: e.destination,
-                        status: e.status,
-                        flightId: e.flightId,
-                        gate: e.gate,
-                        airport: e.airport,
-                        date: e.date,
-                        id: e._id,
-                      })
-                    }
-                  >
-                    <IoSettingsSharp
-                      className="config"
-                      value={{ color: "white" }}
-                      color="white"
-                    />
-                  </Button>
-                </TableCell>
-                <TableCell>{e.destination}</TableCell>
-                <TableCell>{e.airport}</TableCell>
-                <TableCell>{e.gate}</TableCell>
-                <TableCell>{e.departs}</TableCell>
-                <TableCell>{e.status}</TableCell>
-                <TableCell>{e.flightId}</TableCell>
-                <TableCell>{e.date}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>
+                        <Filters
+                          flightsComponent={flights}
+                          dispatched={filtered2}
+                        />
+                      </TableCell>
+                      <TableCell>Destination</TableCell>
+                      <TableCell>Airport</TableCell>
+                      <TableCell>Gate</TableCell>
+                      <TableCell>Arrives</TableCell>
+                      <TableCell>Status</TableCell>
+                      <TableCell>FlightID</TableCell>
+                      <TableCell>Date</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {isNull.slice(inicio, sumador).map((e, i) => (
+                      <TableRow
+                        key={i}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell>
+                          <Button
+                            size="small"
+                            type="primary"
+                            onClick={() =>
+                              abrirModal({
+                                destination: e.destination,
+                                status: e.status,
+                                flightId: e.flightId,
+                                gate: e.gate,
+                                airport: e.airport,
+                                date: e.date,
+                                id: e._id,
+                              })
+                            }
+                          >
+                            <IoSettingsSharp
+                              className="config"
+                              value={{ color: "white" }}
+                              color="white"
+                            />
+                          </Button>
+                        </TableCell>
+                        <TableCell>{e.destination}</TableCell>
+                        <TableCell>{e.airport}</TableCell>
+                        <TableCell>{e.gate}</TableCell>
+                        <TableCell>{e.departs}</TableCell>
+                        <TableCell>{e.status}</TableCell>
+                        <TableCell>{e.flightId}</TableCell>
+                        <TableCell>{e.date}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      )}
       <Modal
         title="title"
         open={modal}

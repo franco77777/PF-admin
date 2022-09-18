@@ -27,6 +27,7 @@ import { FaArrowDown, FaArrowUp } from "react-icons/fa"
 import { AiOutlineClose } from "react-icons/ai"
 import Swal from "sweetalert2"
 import "./Customers.css"
+import { motion } from "framer-motion"
 
 const Customers = () => {
   const customers = useSelector(state => state.tasks.users)
@@ -34,6 +35,9 @@ const Customers = () => {
   const users = customers.filter(e => e.status === "user")
   const [sumador, setSumador] = useState(7)
   const [inputPaginado, setInputPaginado] = useState("")
+  const [exist, setExist] = useState(true)
+  const [right, setRight] = useState(false)
+  const [left, setLeft] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -142,9 +146,21 @@ const Customers = () => {
 
   const paginado = e => {
     if (e.target.value === "suma") {
-      setSumador(sumador + 7)
+      setExist(false)
+      setLeft(false)
+      setTimeout(() => {
+        setRight(true)
+        setExist(true)
+        setSumador(sumador + 7)
+      })
     } else if (e.target.value === "resta") {
-      setSumador(sumador - 7)
+      setExist(false)
+      setRight(false)
+      setTimeout(() => {
+        setLeft(true)
+        setExist(true)
+        setSumador(sumador - 7)
+      })
     }
     setInputPaginado("")
   }
@@ -222,62 +238,89 @@ const Customers = () => {
           <span>Next</span>
         </button>
       </div>
-
-      <TableContainer
-        component={Paper}
-        style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
-      >
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                <div className="centrarfilter">
-                  <Filters
-                    flightsComponent={users}
-                    dispatched={customerFiltering}
-                  />
-                </div>
-              </TableCell>
-              <TableCell align="left">Name</TableCell>
-              <TableCell align="left">Surname</TableCell>
-              <TableCell align="left">Email</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>DNI</TableCell>
-              <TableCell>Nationality</TableCell>
-              <TableCell>Sex</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody style={{ color: "white" }}>
-            {isNull.slice(inicio, sumador).map((e, i) => (
-              <TableRow
-                key={i}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+      {exist && (
+        <motion.div
+          initial={left || right ? "" : { y: 500, opacity: 0 }}
+          animate={left || right ? "" : { y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.div
+            initial={right && { x: 500, opacity: 0 }}
+            animate={right && { x: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.div
+              initial={left && { x: -500, opacity: 0 }}
+              animate={left && { x: 0, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <TableContainer
+                component={Paper}
+                style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
               >
-                <TableCell>
-                  <div className="icons3">
-                    <Button size="small" type="primary">
-                      <FaArrowDown onClick={() => ban(e._id, e.email)} />
-                    </Button>
-                    <Button size="small" type="primary">
-                      <FaArrowUp onClick={() => upgrade(e._id, e.email)} />
-                    </Button>
-                    <Button size="small" type="primary">
-                      <AiOutlineClose onClick={() => Delete(e._id, e.email)} />
-                    </Button>
-                  </div>
-                </TableCell>
-                <TableCell>{e.name}</TableCell>
-                <TableCell>{e.surname}</TableCell>
-                <TableCell>{e.email}</TableCell>
-                <TableCell>{e.phone}</TableCell>
-                <TableCell>{e.DNI}</TableCell>
-                <TableCell>{e.nationality}</TableCell>
-                <TableCell>{e.sex}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>
+                        <div className="centrarfilter">
+                          <Filters
+                            flightsComponent={users}
+                            dispatched={customerFiltering}
+                          />
+                        </div>
+                      </TableCell>
+                      <TableCell align="left">Name</TableCell>
+                      <TableCell align="left">Surname</TableCell>
+                      <TableCell align="left">Email</TableCell>
+                      <TableCell>Phone</TableCell>
+                      <TableCell>DNI</TableCell>
+                      <TableCell>Nationality</TableCell>
+                      <TableCell>Sex</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody style={{ color: "white" }}>
+                    {isNull.slice(inicio, sumador).map((e, i) => (
+                      <TableRow
+                        key={i}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell>
+                          <div className="icons3">
+                            <Button size="small" type="primary">
+                              <FaArrowDown
+                                onClick={() => ban(e._id, e.email)}
+                              />
+                            </Button>
+                            <Button size="small" type="primary">
+                              <FaArrowUp
+                                onClick={() => upgrade(e._id, e.email)}
+                              />
+                            </Button>
+                            <Button size="small" type="primary">
+                              <AiOutlineClose
+                                onClick={() => Delete(e._id, e.email)}
+                              />
+                            </Button>
+                          </div>
+                        </TableCell>
+                        <TableCell>{e.name}</TableCell>
+                        <TableCell>{e.surname}</TableCell>
+                        <TableCell>{e.email}</TableCell>
+                        <TableCell>{e.phone}</TableCell>
+                        <TableCell>{e.DNI}</TableCell>
+                        <TableCell>{e.nationality}</TableCell>
+                        <TableCell>{e.sex}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   )
 }
