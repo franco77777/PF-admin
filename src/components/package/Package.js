@@ -133,13 +133,12 @@ const Package = ({ visual, setVisual, setEffect2, setEffect3 }) => {
       origin: visual.origin,
       destination: visual.destination,
     }
-    console.log("soy final package", finalPackage)
+
     const response = await axios.post(
       "https://seraerror2.herokuapp.com/package",
       finalPackage
     )
 
-    console.log("soy response de axios put", response.data)
     setEffect2(true)
     setTimeout(() => {
       setEffect3(true)
@@ -165,8 +164,6 @@ const Package = ({ visual, setVisual, setEffect2, setEffect3 }) => {
       setEffect2(false)
       setEffect3(false)
     }, 2200)
-    console.log("soy destiny", destiny)
-    //console.log("soy response data axioas", response.data)
   }
 
   const textChange = e => {
@@ -190,7 +187,6 @@ const Package = ({ visual, setVisual, setEffect2, setEffect3 }) => {
     "Cancun, Mexico",
   ]
 
-  console.log("soy visual", visual)
   ////////////////////////////////////////////////////////
 
   return (

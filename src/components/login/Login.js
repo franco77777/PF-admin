@@ -90,9 +90,7 @@ const Login = () => {
       setTimeout(() => {
         setAcces(true)
       }, 1500)
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) {}
   }
 
   const ojoChange = () => {

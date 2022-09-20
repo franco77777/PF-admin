@@ -70,7 +70,7 @@ const Orders = () => {
   const handleChange3 = (a, b) => {
     setOrder({ ...order, departs: b })
   }
-  console.log(order)
+
   return (
     <div className="order">
       <h2 className="title">Create Product</h2>

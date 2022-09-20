@@ -11,7 +11,6 @@ const Prueba = () => {
     } else if (e.target.value === "resta") {
       setSumador(sumador - 7)
     }
-    console.log("soy sumador", sumador)
   }
   return (
     <div className="error">

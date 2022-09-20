@@ -37,13 +37,11 @@ const Flights = () => {
   }, [])
 
   const abrirModal = e => {
-    console.log("soy abrir", e)
     setModal(true)
     setPlace(e)
   }
   const cerrarModal = e => {
     setModal(false)
-    console.log(e)
   }
 
   const putFlight = async e => {
@@ -128,8 +126,6 @@ const Flights = () => {
     setInputPaginado(e.target.value)
     setSumador(e.target.value * 7)
   }
-
-  console.log("soy flights", flights)
 
   return (
     <div className="Table2 ">

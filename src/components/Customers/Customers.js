@@ -44,7 +44,6 @@ const Customers = () => {
   useEffect(() => {
     dispatch(getTask())
   }, [dispatch])
-  console.log("soy users", users)
 
   const upgrade = async (e, b) => {
     return Swal.fire({

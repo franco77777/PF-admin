@@ -42,13 +42,11 @@ const Products = () => {
   }, [])
 
   const abrirModal = e => {
-    console.log("soy abrir", e)
     setModal(true)
     setPlace(e)
   }
   const cerrarModal = e => {
     setModal(false)
-    console.log(e)
   }
 
   const putFlight = async e => {
@@ -144,11 +142,6 @@ const Products = () => {
     setSumador(e.target.value * 6)
   }
 
-  console.log("soy order", order)
-  console.log("isNull length", isNull.length)
-
-  console.log("soy null", isNull)
-  console.log("soy isNull slice", isNull.slice(inicio, sumador))
   return (
     <div className="Table2 ">
       <h2 className="centrar title">Planned Trips</h2>

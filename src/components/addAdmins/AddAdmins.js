@@ -15,13 +15,11 @@ const AddAdmins = () => {
   const dispatch = useDispatch()
 
   const abrirModal = e => {
-    console.log("soy abrir", e)
     setModal(true)
     setPlace(e)
   }
   const cerrarModal = e => {
     setModal(false)
-    console.log(e)
   }
   const accion = () => {
     cerrarModal()
@@ -87,7 +85,6 @@ const AddAdmins = () => {
       confirmButtonColor: "#2f9b05",
     })
     setOrder(initialState)
-    console.log("soy el post", response.data)
   }
 
   const ojoChange = () => {
