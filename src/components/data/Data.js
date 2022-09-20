@@ -99,19 +99,19 @@ export const UpdatesData = [
   {
     img: img1,
     name: "Andrew Thomas",
-    noti: "the flight arrived late, I do not recommend it",
+    noti: "the flight arrived late",
     time: "25 seconds ago",
   },
   {
     img: img2,
     name: "James Bond",
-    noti: "poor receptionist service",
+    noti: "good attention",
     time: "30 minutes ago",
   },
   {
     img: img3,
     name: "Iron Man",
-    noti: "they lost my suitcase, I will never go back to that airline",
+    noti: "cheap flights",
     time: "2 hours ago",
   },
 ]

@@ -7,6 +7,8 @@ import { IoAirplaneOutline } from "react-icons/io5"
 import { RiAdminLine } from "react-icons/ri"
 import { MdOutlineSell } from "react-icons/md"
 import { ImUserTie } from "react-icons/im"
+import { GoPackage } from "react-icons/go"
+
 import { motion } from "framer-motion"
 import { UilBars } from "@iconscout/react-unicons"
 import logo from "../imgs/logo.png"
@@ -100,6 +102,14 @@ const Sidebar = ({ selected, setSelected }) => {
           >
             <BsCardChecklist />
             <span>Orders</span>
+          </div>
+
+          <div
+            className={selected === 7 ? "menuItem active" : "menuItem"}
+            onClick={() => setSelected(7)}
+          >
+            <GoPackage />
+            <span>Package</span>
           </div>
         </article>
       </motion.div>

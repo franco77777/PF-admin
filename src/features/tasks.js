@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getFlights, getFlightsAvailables, getTask } from "./orders"
+import { getFlights, getFlightsAvailables, getPackage, getTask } from "./orders"
 
 export const taskSlice = createSlice({
   name: "tasks",
   initialState: {
+    avioncillo: false,
     users: [],
     flights: [],
+    Package: [],
     flightsAv: [],
     flightsFiltered: null,
     flightsFiltered2: null,
@@ -48,6 +50,9 @@ export const taskSlice = createSlice({
         e => e === action.payload
       )
     },
+    avioncilled: (state, action) => {
+      state.avioncillo = action.payload
+    },
   },
   extraReducers: {
     [getTask.pending]: state => {
@@ -80,6 +85,16 @@ export const taskSlice = createSlice({
     [getFlightsAvailables.rejected]: state => {
       state.isLoading = false
     },
+    [getPackage.pending]: state => {
+      state.isLoading = true
+    },
+    [getPackage.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.Package = action.payload
+    },
+    [getPackage.rejected]: state => {
+      state.isLoading = false
+    },
   },
 })
 export const {
@@ -91,5 +106,6 @@ export const {
   customerFiltering,
   bannedFiltering,
   paginadoFiltering,
+  avioncilled,
 } = taskSlice.actions
 export default taskSlice.reducer

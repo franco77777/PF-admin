@@ -48,7 +48,7 @@ const Banned = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.delete(`https://pf-seraerror.herokuapp.com/user/${e}`)
+        await axios.delete(`https://seraerror2.herokuapp.com/user/${e}`)
         dispatch(bannedFiltering(null))
         dispatch(getTask())
         Swal.fire({
@@ -75,7 +75,7 @@ const Banned = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.put(`https://pf-seraerror.herokuapp.com/user/${e}`, {
+        await axios.put(`https://seraerror2.herokuapp.com/user/${e}`, {
           status: "user",
         })
         dispatch(bannedFiltering(null))
@@ -104,7 +104,7 @@ const Banned = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.put(`https://pf-seraerror.herokuapp.com/user/${e}`, {
+        await axios.put(`https://seraerror2.herokuapp.com/user/${e}`, {
           status: "admin",
         })
         dispatch(bannedFiltering(null))

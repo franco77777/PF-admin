@@ -74,7 +74,7 @@ const AddAdmins = () => {
     }
 
     const response = await axios.post(
-      "https://pf-seraerror.herokuapp.com/user",
+      "https://seraerror2.herokuapp.com/user",
       order
     )
     dispatch(getTask())

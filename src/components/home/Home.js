@@ -11,9 +11,14 @@ import RightSide from "../RigtSide/RightSide"
 import Sidebar from "../Sidebar/Sidebar"
 import salmon from "../imgs/salmon.jpg"
 import "./home.css"
+import Package from "../package/Package"
+import PreView from "../preView/PreView"
 
 const Home = () => {
   const [selected, setSelected] = useState(0)
+  const [visual, setVisual] = useState({})
+  const [effect2, setEffect2] = useState(null)
+  const [effect3, setEffect3] = useState(null)
   return (
     <>
       <div className="App">
@@ -29,7 +34,24 @@ const Home = () => {
           {selected === 4 && <Flights />}
           {selected === 5 && <Products />}
           {selected === 6 && <Orders />}
-          <RightSide />
+          {selected === 7 && (
+            <Package
+              setVisual={setVisual}
+              visual={visual}
+              setEffect2={setEffect2}
+              setEffect3={setEffect3}
+            />
+          )}
+          {selected === 7 ? (
+            <PreView
+              visual={visual}
+              setVisual={setVisual}
+              effect2={effect2}
+              effect3={effect3}
+            />
+          ) : (
+            <RightSide />
+          )}
         </div>
       </div>
       <div className="header">

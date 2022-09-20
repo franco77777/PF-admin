@@ -1,0 +1,47 @@
+.order2 {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.botonSubmit2 {
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form2 {
+  top: 40px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 1s;
+}
+.div2 {
+  background-color: black;
+  height: 32px;
+}
+
+.divPrice2 {
+  height: 48px;
+}
+
+.divText2 {
+  height: 209px;
+}
+.title2 {
+  font-size: 20px;
+
+  margin-top: 70px;
+}
+
+@media screen and (max-width: 768px) {
+  .order2 {
+    overflow-y: visible;
+  }
+}
