@@ -16,7 +16,7 @@ import { getTask } from "../../features/orders"
 import { GiJumpAcross } from "react-icons/gi"
 import { bannedFiltering } from "../../features/tasks"
 import Filters from "../filters/Filters"
-import { Button } from "antd"
+import { Button, Spin } from "antd"
 import { FaArrowUp } from "react-icons/fa"
 import { AiOutlineClose } from "react-icons/ai"
 import Swal from "sweetalert2"
@@ -167,7 +167,13 @@ const Banned = () => {
     setInputPaginado(e.target.value)
     setSumador(e.target.value * 7)
   }
-
+  if (!customers.length) {
+    return (
+      <div className="spinToWin">
+        <Spin className="spin" tip="Loading..."></Spin>
+      </div>
+    )
+  }
   return (
     <div className="Table2">
       <h2 className="centrar title">Banned Users</h2>
