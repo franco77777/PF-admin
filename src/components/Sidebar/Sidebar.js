@@ -29,7 +29,7 @@ const Sidebar = ({ selected, setSelected }) => {
 
   return (
     <>
-      <div
+      <motion.div
         className="bars"
         initial={expanded ? { x: -200 } : { x: 0 }}
         animate={expanded ? { x: 0 } : { x: -200 }}
@@ -37,7 +37,7 @@ const Sidebar = ({ selected, setSelected }) => {
         onClick={() => setExpaned(!expanded)}
       >
         <UilBars />
-      </div>
+      </motion.div>
       <motion.div
         className="sidebar"
         variants={sidebarVariants}
