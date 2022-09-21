@@ -110,7 +110,7 @@
   .bars {
     display: flex;
     position: fixed;
-    top: 2rem;
+    bottom: 2rem;
     left: 60%;
     background: #0184a0;
     padding: 10px;
