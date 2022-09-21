@@ -10,7 +10,7 @@ import "./Table.css"
 import { useDispatch, useSelector } from "react-redux"
 
 import React, { useEffect, useState } from "react"
-import { Button, Modal } from "antd"
+import { Button, Modal, Spin } from "antd"
 import avioncillo2 from "../imgs/avioncillo2.png"
 import paquete from "../imgs/paquete.png"
 import moment from "moment"
@@ -135,6 +135,13 @@ const BasicTable = () => {
   }
 
   const description = splitPackages.map(e => e.description)
+  if (!packages.length) {
+    return (
+      <div className="spinToWin">
+        <Spin className="spin" tip="Loading..."></Spin>
+      </div>
+    )
+  }
 
   if (exist) {
     return (
