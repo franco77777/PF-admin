@@ -56,9 +56,12 @@ const Customers = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.put(`https://seraerror2.herokuapp.com/user/${e}`, {
-          status: "admin",
-        })
+        await axios.put(
+          `https://pf-backendfinal-production.up.railway.app/user/${e}`,
+          {
+            status: "admin",
+          }
+        )
         dispatch(customerFiltering(null))
         dispatch(getTask())
         Swal.fire({
@@ -85,7 +88,9 @@ const Customers = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.delete(`https://seraerror2.herokuapp.com/user/${e}`)
+        await axios.delete(
+          `https://pf-backendfinal-production.up.railway.app/user/${e}`
+        )
         dispatch(customerFiltering(null))
         dispatch(getTask())
         Swal.fire({
@@ -112,9 +117,12 @@ const Customers = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.put(`https://seraerror2.herokuapp.com/user/${e}`, {
-          status: "banned",
-        })
+        await axios.put(
+          `https://pf-backendfinal-production.up.railway.app/user/${e}`,
+          {
+            status: "banned",
+          }
+        )
         dispatch(customerFiltering(null))
         dispatch(getTask())
         Swal.fire({

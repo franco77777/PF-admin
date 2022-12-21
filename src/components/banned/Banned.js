@@ -48,7 +48,9 @@ const Banned = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.delete(`https://seraerror2.herokuapp.com/user/${e}`)
+        await axios.delete(
+          `https://pf-backendfinal-production.up.railway.app/user/${e}`
+        )
         dispatch(bannedFiltering(null))
         dispatch(getTask())
         Swal.fire({
@@ -75,9 +77,12 @@ const Banned = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.put(`https://seraerror2.herokuapp.com/user/${e}`, {
-          status: "user",
-        })
+        await axios.put(
+          `https://pf-backendfinal-production.up.railway.app/user/${e}`,
+          {
+            status: "user",
+          }
+        )
         dispatch(bannedFiltering(null))
         dispatch(getTask())
         Swal.fire({
@@ -104,9 +109,12 @@ const Banned = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.put(`https://seraerror2.herokuapp.com/user/${e}`, {
-          status: "admin",
-        })
+        await axios.put(
+          `https://pf-backendfinal-production.up.railway.app/user/${e}`,
+          {
+            status: "admin",
+          }
+        )
         dispatch(bannedFiltering(null))
         dispatch(getTask())
         Swal.fire({

@@ -135,7 +135,7 @@ const Package = ({ visual, setVisual, setEffect2, setEffect3 }) => {
     }
 
     const response = await axios.post(
-      "https://seraerror2.herokuapp.com/package",
+      "https://pf-backendfinal-production.up.railway.app/package",
       finalPackage
     )
 

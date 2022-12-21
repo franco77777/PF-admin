@@ -136,6 +136,7 @@ const BasicTable = () => {
 
   const description = splitPackages.map(e => e.description)
   if (!packages.length) {
+    console.log("soy paquetes", packages)
     return (
       <div className="spinToWin">
         <Spin className="spin" tip="Loading..."></Spin>

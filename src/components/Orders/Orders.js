@@ -47,7 +47,7 @@ const Orders = () => {
       })
     }
     const response = await axios.post(
-      "https://seraerror2.herokuapp.com/flightsAvailable",
+      "https://pf-backendfinal-production.up.railway.app/flightsAvailable",
       order
     )
     Swal.fire({

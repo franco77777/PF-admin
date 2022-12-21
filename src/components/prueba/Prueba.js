@@ -1,28 +1,16 @@
-import React, { useState } from "react"
-import logo from "../imgs/logo.png"
-import "./prueba.css"
+import React from "react"
 
 const Prueba = () => {
-  const [sumador, setSumador] = useState(0)
-
-  const paginado = e => {
-    if (e.target.value === "suma") {
-      setSumador(sumador + 7)
-    } else if (e.target.value === "resta") {
-      setSumador(sumador - 7)
-    }
+  const endpoint = value => {
+    value = value || "https://www.cotalker.com/api/messages/ping"
+    fetch(value)
+      .then(res => res.json())
+      .then(res => new Date(res.time).toISOString())
+      .then(res => console.log("soy res", res))
   }
-  return (
-    <div className="error">
-      <button value="suma" onClick={paginado}>
-        sumar
-      </button>
-      <div>soy sumador:{sumador}</div>
-      <button value="resta" onClick={paginado}>
-        restar
-      </button>
-    </div>
-  )
+
+  endpoint()
+  return <div>hpola</div>
 }
 
 export default Prueba
