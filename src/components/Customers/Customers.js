@@ -57,7 +57,7 @@ const Customers = () => {
     }).then(async response => {
       if (response.isConfirmed) {
         await axios.put(
-          `https://pfbackend-production-1837.up.railway.app/user/${e}`,
+          `https://pf-backendfinal-production-ee7c.up.railway.app/user/${e}`,
           {
             status: "admin",
           }
@@ -89,7 +89,7 @@ const Customers = () => {
     }).then(async response => {
       if (response.isConfirmed) {
         await axios.delete(
-          `https://pfbackend-production-1837.up.railway.app/user/${e}`
+          `https://pf-backendfinal-production-ee7c.up.railway.app/user/${e}`
         )
         dispatch(customerFiltering(null))
         dispatch(getTask())
@@ -118,7 +118,7 @@ const Customers = () => {
     }).then(async response => {
       if (response.isConfirmed) {
         await axios.put(
-          `https://pfbackend-production-1837.up.railway.app/user/${e}`,
+          `https://pf-backendfinal-production-ee7c.up.railway.app/user/${e}`,
           {
             status: "banned",
           }

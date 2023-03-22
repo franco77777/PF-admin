@@ -49,7 +49,7 @@ const Banned = () => {
     }).then(async response => {
       if (response.isConfirmed) {
         await axios.delete(
-          `https://pfbackend-production-1837.up.railway.app/user/${e}`
+          `https://pf-backendfinal-production-ee7c.up.railway.app/user/${e}`
         )
         dispatch(bannedFiltering(null))
         dispatch(getTask())
@@ -78,7 +78,7 @@ const Banned = () => {
     }).then(async response => {
       if (response.isConfirmed) {
         await axios.put(
-          `https://pfbackend-production-1837.up.railway.app/user/${e}`,
+          `https://pf-backendfinal-production-ee7c.up.railway.app/user/${e}`,
           {
             status: "user",
           }
@@ -110,7 +110,7 @@ const Banned = () => {
     }).then(async response => {
       if (response.isConfirmed) {
         await axios.put(
-          `https://pfbackend-production-1837.up.railway.app/user/${e}`,
+          `https://pf-backendfinal-production-ee7c.up.railway.app/user/${e}`,
           {
             status: "admin",
           }

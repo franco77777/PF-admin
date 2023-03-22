@@ -72,7 +72,7 @@ const AddAdmins = () => {
     }
 
     const response = await axios.post(
-      "https://pfbackend-production-1837.up.railway.app/user",
+      "https://pf-backendfinal-production-ee7c.up.railway.app/user",
       order
     )
     dispatch(getTask())
