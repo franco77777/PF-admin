@@ -32,6 +32,8 @@
 }
 
 .Table2 {
+  max-width: 100%;
+  overflow: auto;
 }
 @media screen and (max-width: 1200px) {
   .Table2 {

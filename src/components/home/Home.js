@@ -31,7 +31,7 @@ const Home = () => {
           {selected === 1 && <Admins />}
           {selected === 2 && <Customers />}
           {selected === 3 && <Banned />}
-          {selected === 4 && <Flights />}
+          {/* {selected === 4 && <Flights />} */}
           {selected === 5 && <Products />}
           {selected === 6 && <Orders />}
           {selected === 7 && (

@@ -82,13 +82,13 @@ const Sidebar = ({ selected, setSelected }) => {
             <span>Banned</span>
           </div>
 
-          <div
+        {/*   <div
             className={selected === 4 ? "menuItem active" : "menuItem"}
             onClick={() => setSelected(4)}
           >
             <IoAirplaneOutline />
             <span>Flights</span>
-          </div>
+          </div> */}
 
           <div
             className={selected === 5 ? "menuItem active" : "menuItem"}
