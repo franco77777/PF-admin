@@ -135,7 +135,7 @@ const Package = ({ visual, setVisual, setEffect2, setEffect3 }) => {
     }
 
     const response = await axios.post(
-      "https://pf-backendfinal-production-ee7c.up.railway.app/package",
+      "https://pfbackend-production-b49a.up.railway.app/package",
       finalPackage
     )
 

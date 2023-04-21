@@ -3,14 +3,14 @@ import axios from "axios"
 
 export const getTask = createAsyncThunk("tasks/getTasks", async () => {
   const responde = await axios.get(
-    "https://pf-backendfinal-production-ee7c.up.railway.app/user"
+    "https://pfbackend-production-b49a.up.railway.app/user"
   )
   return responde.data
 })
 
 export const getFlights = createAsyncThunk("tasks/getFlights", async () => {
   const response = await axios(
-    "https://pf-backendfinal-production-ee7c.up.railway.app/flights"
+    "https://pfbackend-production-b49a.up.railway.app/flights"
   )
 
   return response.data
@@ -20,7 +20,7 @@ export const getFlightsAvailables = createAsyncThunk(
   "tasks/getFlightsAvailables",
   async () => {
     const response = await axios(
-      "https://pf-backendfinal-production-ee7c.up.railway.app/flightsAvailable"
+      "https://pfbackend-production-b49a.up.railway.app/flightsAvailable"
     )
     const response2 = response.data
     const response3 = response2.sort(
@@ -33,7 +33,7 @@ export const getFlightsAvailables = createAsyncThunk(
 
 export const getPackage = createAsyncThunk("tasks/getPackage", async () => {
   const response = await axios(
-    "https://pf-backendfinal-production-ee7c.up.railway.app/package"
+    "https://pfbackend-production-b49a.up.railway.app/package"
   )
 
   return response.data

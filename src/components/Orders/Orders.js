@@ -47,7 +47,7 @@ const Orders = () => {
       })
     }
     const response = await axios.post(
-      "https://pf-backendfinal-production-ee7c.up.railway.app/flightsAvailable",
+      "https://pfbackend-production-b49a.up.railway.app/flightsAvailable",
       order
     )
     Swal.fire({

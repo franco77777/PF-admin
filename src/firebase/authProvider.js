@@ -1,11 +1,7 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import { auth, userExists } from "../../firebase/fire"
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  onAuthStateChanged,
-} from "firebase/auth"
+import { onAuthStateChanged } from "firebase/auth"
 
 const authProvider = ({ children, onUserLoggedIn, onUserNotLoggedIn }) => {
   const navigate = useNavigate()
