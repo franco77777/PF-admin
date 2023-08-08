@@ -48,9 +48,7 @@ const Banned = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.delete(
-          `https://pfbackend-production-b49a.up.railway.app/user/${e}`
-        )
+        await axios.delete(`https://pf-backend-2702.onrender.com/user/${e}`)
         dispatch(bannedFiltering(null))
         dispatch(getTask())
         Swal.fire({
@@ -77,12 +75,9 @@ const Banned = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.put(
-          `https://pfbackend-production-b49a.up.railway.app/user/${e}`,
-          {
-            status: "user",
-          }
-        )
+        await axios.put(`https://pf-backend-2702.onrender.com/user/${e}`, {
+          status: "user",
+        })
         dispatch(bannedFiltering(null))
         dispatch(getTask())
         Swal.fire({
@@ -109,12 +104,9 @@ const Banned = () => {
       confirmButtonColor: "#1890ff",
     }).then(async response => {
       if (response.isConfirmed) {
-        await axios.put(
-          `https://pfbackend-production-b49a.up.railway.app/user/${e}`,
-          {
-            status: "admin",
-          }
-        )
+        await axios.put(`https://pf-backend-2702.onrender.com/user/${e}`, {
+          status: "admin",
+        })
         dispatch(bannedFiltering(null))
         dispatch(getTask())
         Swal.fire({
